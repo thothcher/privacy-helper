@@ -1,0 +1,2136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Terms &amp; Privacy, Decoded</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..800;1,9..144,400..800&family=Manrope:wght@400..800&family=IBM+Plex+Mono:wght@400;600&display=swap">
+<style>
+:root {
+  /* Layout: one responsive 16:9 stage. Type scales with min(vw, vh), so every slide composes like a fixed canvas on a projector and reflows into a scrolling column on phones. Clause numbers (§) and fine-print mono labels come from the legal documents themselves. Single light theme by choice: pine green on warm paper, with a highlighter yellow reserved for "fill this in" placeholders. Photos are hotlinked from Unsplash; every photo frame has a solid fallback colour for offline rooms. */
+  --paper: #FAF8F3;
+  --ink: #17201C;
+  --ink-2: #4F5B55;
+  --ink-3: #8D968F;
+  --accent: #1E6B52;
+  --accent-deep: #134A39;
+  --accent-mid: #9CC5B3;
+  --accent-tint: #E1EFE7;
+  --wash: #F2EFE7;
+  --line: #E2DCCF;
+  --flag: #B53F1E;
+  --flag-tint: #FBEAE2;
+  --on-accent: #FFFFFF;
+  --on-accent-2: #CBE5D9;
+  --mark: #FFE48C;
+  --mark-line: #E5C24F;
+  --mark-ink: #4D3A00;
+  --shade: rgba(10, 38, 30, .9);
+  --code-bg: #17201C;
+  --code-fg: #E2ECE6;
+  --code-c: #8EA298;
+  --code-s: #F4C48F;
+  --code-k: #9FDABF;
+  --f-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --f-body: "Manrope", "Segoe UI", Arial, sans-serif;
+  --f-mono: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  --gutter: clamp(16px, 3.4vw, 4.5rem);
+  --radius: .85rem;
+  color-scheme: light;
+}
+*, *::before, *::after { box-sizing: border-box }
+html { height: 100%; font-size: clamp(14px, min(1.1vw, 1.98vh), 24px) }
+body { margin: 0; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink); font-family: var(--f-body); font-size: 1rem; line-height: 1.45; -webkit-font-smoothing: antialiased }
+[hidden] { display: none !important }
+h1, h2, h3, p, ul, ol, figure { margin: 0 }
+ul, ol { padding: 0; list-style: none }
+button { font: inherit; color: inherit; cursor: pointer }
+a { color: var(--accent) }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 6px }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap }
+
+/* ---------- deck chrome ---------- */
+.deck { position: fixed; inset: 0; display: grid; grid-template-rows: auto minmax(0, 1fr) auto; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); background: var(--paper) }
+.topbar { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: .85rem var(--gutter) .3rem }
+.brand { display: flex; align-items: center; gap: .6rem; font-family: var(--f-display); font-weight: 700; font-size: .98rem; letter-spacing: -.01em; min-width: 0 }
+.brand-mark { display: grid; place-items: center; width: 1.8rem; height: 1.8rem; flex: none; border-radius: .45rem; background: var(--accent); color: var(--on-accent); font-size: 1.05rem }
+.part-label { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); text-align: center; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.tools { display: flex; gap: .4rem; flex: none }
+.tool { display: inline-flex; align-items: center; gap: .45rem; border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: .4rem .8rem; font-size: .8rem; font-weight: 600; transition: border-color .2s, color .2s, background .2s }
+.tool:hover { border-color: var(--accent); color: var(--accent) }
+.tool[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent) }
+.tool kbd { font-family: var(--f-mono); font-size: .66rem; opacity: .7 }
+.tool svg, .nav-btn svg { width: 1rem; height: 1rem; flex: none }
+
+.stage { position: relative; overflow: hidden; min-height: 0 }
+.slide { position: absolute; inset: 0; overflow-y: auto; overflow-x: hidden; padding: 1rem var(--gutter) 1.2rem; opacity: 0; visibility: hidden; transform: translateX(2.5%); transition: opacity .45s ease, transform .6s cubic-bezier(.2, .75, .2, 1), visibility 0s linear .6s }
+.slide.is-past { transform: translateX(-2.5%) }
+.slide.is-active { opacity: 1; visibility: visible; transform: none; transition: opacity .45s ease, transform .6s cubic-bezier(.2, .75, .2, 1), visibility 0s }
+.frame { max-width: 88rem; min-height: 100%; margin-inline: auto; display: flex; flex-direction: column; gap: 1.4rem }
+
+.controls { display: flex; align-items: center; gap: 1rem; padding: .45rem var(--gutter) .9rem }
+.nav-btn { display: inline-flex; align-items: center; gap: .5rem; border-radius: 999px; padding: .6rem 1.1rem; font-weight: 600; font-size: .88rem; border: 1px solid var(--line); background: var(--paper); transition: background .2s, border-color .2s }
+.nav-btn:hover:not(:disabled) { border-color: var(--accent) }
+.nav-btn.next { background: var(--accent); color: var(--on-accent); border-color: var(--accent) }
+.nav-btn.next:hover:not(:disabled) { background: var(--accent-deep) }
+.nav-btn:disabled { opacity: .4; cursor: default }
+.progress { flex: 1; display: flex; gap: .9rem; min-width: 0 }
+.grp { display: flex; gap: .25rem; min-width: 0 }
+.pseg { flex: 1; min-width: .45rem; height: 1.6rem; border: 0; background: none; padding: 0; display: grid; align-items: center }
+.pseg::after { content: ""; height: .3rem; border-radius: 99px; background: var(--line); transition: background .3s, height .3s }
+.pseg.done::after { background: var(--accent-mid) }
+.pseg.now::after { background: var(--accent); height: .55rem }
+.pseg:hover::after { background: var(--accent) }
+.counter { font-family: var(--f-mono); font-size: .8rem; color: var(--ink-2); font-variant-numeric: tabular-nums; white-space: nowrap }
+
+/* ---------- shared type & parts ---------- */
+.head { display: grid; gap: .5rem; max-width: 64rem }
+.head-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 1.5rem; flex-wrap: wrap }
+.head-actions { display: flex; gap: .5rem; flex-wrap: wrap }
+.eyebrow { font-family: var(--f-mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 600 }
+.title { font-family: var(--f-display); font-weight: 600; font-size: 2.6rem; line-height: 1.06; letter-spacing: -.02em; text-wrap: balance }
+.lede { font-size: 1.08rem; color: var(--ink-2); max-width: 62ch; text-wrap: pretty }
+.block-title { font-family: var(--f-display); font-size: 1.3rem; font-weight: 600; letter-spacing: -.01em }
+.block-head { display: flex; justify-content: space-between; align-items: center; gap: .8rem 1rem; flex-wrap: wrap }
+.mini-label { font-family: var(--f-mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); font-weight: 600 }
+.fine { font-family: var(--f-mono); font-size: .7rem; color: var(--ink-2); letter-spacing: .02em }
+.stack { display: flex; flex-direction: column; gap: 2rem; min-width: 0 }
+.stack > section { display: grid; gap: .8rem; min-width: 0 }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: .5rem; border: 1px solid var(--accent); background: var(--accent); color: var(--on-accent); border-radius: .6rem; padding: .7rem 1.2rem; font-weight: 600; font-size: .95rem; line-height: 1.2; text-decoration: none; transition: background .2s, border-color .2s, transform .15s }
+.btn:hover { background: var(--accent-deep); border-color: var(--accent-deep) }
+.btn:active { transform: translateY(1px) }
+.btn:disabled { opacity: .45; cursor: default }
+.btn-ghost { background: var(--paper); color: var(--ink); border-color: var(--line) }
+.btn-ghost:hover { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-deep) }
+.btn-ghost[aria-pressed="true"] { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-deep) }
+.btn-sm { padding: .45rem .8rem; font-size: .82rem; border-radius: .5rem }
+.btn-block { width: 100% }
+
+.seg-ctl { display: inline-flex; flex-wrap: wrap; gap: .2rem; padding: .25rem; border: 1px solid var(--line); border-radius: 999px; background: var(--wash) }
+.seg-ctl button { display: inline-flex; align-items: center; gap: .4rem; border: 0; background: transparent; padding: .45rem .95rem; border-radius: 999px; font-weight: 600; font-size: .85rem; color: var(--ink-2); transition: background .2s, color .2s }
+.seg-ctl button:hover { color: var(--accent) }
+.seg-ctl button[aria-selected="true"] { background: var(--paper); color: var(--accent); box-shadow: 0 1px 2px rgba(23, 32, 28, .12), 0 0 0 1px var(--line) }
+
+.browser { border: 1px solid var(--line); border-radius: 1rem; background: var(--paper); box-shadow: 0 1.4rem 3rem -1.4rem rgba(16, 52, 40, .26); overflow: hidden }
+.browser-bar { display: flex; align-items: center; gap: .4rem; padding: .55rem .8rem; background: var(--wash); border-bottom: 1px solid var(--line) }
+.dot { width: .55rem; height: .55rem; border-radius: 50%; background: var(--line); flex: none }
+.url { margin-left: .5rem; flex: 1; min-width: 0; font-family: var(--f-mono); font-size: .7rem; color: var(--ink-2); background: var(--paper); border: 1px solid var(--line); border-radius: 99px; padding: .22rem .7rem; overflow: hidden; white-space: nowrap; text-overflow: ellipsis }
+.browser-body { padding: 1.2rem 1.3rem; display: grid; gap: .85rem }
+.mock-title { font-family: var(--f-display); font-weight: 700; font-size: 1.2rem; letter-spacing: -.01em }
+.field { display: grid; gap: .3rem }
+.field label { font-size: .78rem; font-weight: 600; color: var(--ink-2) }
+.input { font: inherit; font-size: .92rem; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--paper); color: var(--ink); width: 100% }
+.input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px var(--accent-tint) }
+.check { display: flex; gap: .65rem; align-items: flex-start; font-size: .9rem; line-height: 1.4; cursor: pointer }
+.cb { appearance: none; -webkit-appearance: none; margin: .1rem 0 0; width: 1.25rem; height: 1.25rem; flex: none; border: 2px solid var(--ink-2); border-radius: .3rem; display: grid; place-items: center; background: var(--paper); cursor: pointer; transition: background .15s, border-color .15s }
+.cb:checked { background: var(--accent); border-color: var(--accent) }
+.cb:checked::after { content: ""; width: .32rem; height: .62rem; border: solid var(--on-accent); border-width: 0 .16rem .16rem 0; transform: translateY(-.08rem) rotate(45deg) }
+.legal-link, .check a { color: var(--accent); text-decoration: underline; text-underline-offset: .15em; font-weight: 600 }
+.form-error { font-size: .82rem; color: var(--flag); font-weight: 600; display: flex; gap: .45rem; align-items: center }
+.form-error::before { content: "!"; display: grid; place-items: center; width: 1.1rem; height: 1.1rem; flex: none; border-radius: 50%; background: var(--flag); color: var(--paper); font-size: .7rem; font-weight: 800 }
+.form-note { font-size: .8rem; color: var(--ink-2) }
+
+.code { margin: 0; font-family: var(--f-mono); font-size: .76rem; line-height: 1.6; background: var(--code-bg); color: var(--code-fg); border-radius: .8rem; padding: .95rem 1.1rem; overflow-x: auto; white-space: pre; tab-size: 2 }
+.code .c { color: var(--code-c) }
+.code .s { color: var(--code-s) }
+.code .k { color: var(--code-k) }
+
+.rules { display: grid; gap: .7rem }
+.rules li { display: grid; grid-template-columns: 1.4rem minmax(0, 1fr); gap: .7rem; align-items: start; font-size: .93rem; line-height: 1.42 }
+.rules li::before { content: ""; width: 1.3rem; height: 1.3rem; border-radius: .35rem; background: var(--accent-tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.5l3 3 6-7' fill='none' stroke='%231E6B52' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 72% no-repeat }
+
+/* law rows (slides 4 and 9) */
+.law-list { display: grid; border-top: 1px solid var(--line) }
+.law { display: grid; grid-template-columns: 15rem minmax(0, 1fr) 14rem; gap: 1.5rem; padding: .75rem 0; border-bottom: 1px solid var(--line); align-items: start }
+.law-name { font-family: var(--f-display); font-weight: 700; font-size: 1rem; line-height: 1.25 }
+.law-name small { display: block; font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); font-weight: 400; letter-spacing: .03em; margin-top: .2rem }
+.law-name .tag-case { display: inline-block; font-family: var(--f-mono); font-size: .6rem; letter-spacing: .1em; text-transform: uppercase; background: var(--flag-tint); color: var(--flag); padding: .12rem .4rem; border-radius: .3rem; margin-bottom: .3rem; font-weight: 600 }
+.law-name .tag-tip { background: var(--accent-tint); color: var(--accent-deep) }
+.law-text { font-size: .92rem; line-height: 1.45 }
+.fe { justify-self: start; font-size: .78rem; font-weight: 600; color: var(--accent-deep); background: var(--accent-tint); border-radius: .5rem; padding: .35rem .6rem; line-height: 1.35 }
+.fe::before { content: "</>"; font-family: var(--f-mono); font-size: .66rem; margin-right: .4rem; color: var(--accent) }
+
+@keyframes rise { from { opacity: 0; transform: translateY(.8rem) } to { opacity: 1; transform: none } }
+.slide.is-active .rise { animation: rise .6s cubic-bezier(.2, .75, .2, 1) both; animation-delay: calc(var(--i, 0) * 80ms + 120ms) }
+@keyframes swap { from { opacity: 0; transform: translateY(.35rem) } to { opacity: 1; transform: none } }
+.swap { animation: swap .35s ease both }
+
+/* ---------- slide 1 ---------- */
+.hero { flex: 1; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 4rem; align-items: center }
+.hero-copy { display: grid; gap: 1.3rem; min-width: 0 }
+.hero h1 { font-family: var(--f-display); font-weight: 600; font-size: 4.6rem; line-height: .98; letter-spacing: -.03em; text-wrap: balance }
+.hero h1 span, .finale h2 span { color: var(--accent); font-style: italic; font-weight: 500 }
+.agenda { display: grid; gap: .5rem; max-width: 36rem }
+.agenda button { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr) auto; align-items: center; gap: .9rem; text-align: left; padding: .65rem .95rem; border: 1px solid var(--line); border-radius: .75rem; background: var(--paper); transition: border-color .2s, background .2s }
+.agenda button:hover { border-color: var(--accent); background: var(--wash) }
+.ag-letter { font-family: var(--f-display); font-weight: 800; font-size: 1.5rem; color: var(--accent); line-height: 1 }
+.agenda b { display: block; font-size: .98rem }
+.agenda small { display: block; font-size: .8rem; color: var(--ink-2) }
+.ag-range { font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); white-space: nowrap }
+.hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap }
+.hint { font-family: var(--f-mono); font-size: .7rem; color: var(--ink-2) }
+.hook-wrap { position: relative; display: grid; gap: 1rem; justify-items: center; min-width: 0 }
+.hook-card { position: relative; width: 100%; max-width: 27rem }
+
+/* photo frames: a photo sits top-right and the card overlaps its lower-left corner (slides 1 and 12) */
+.photo { position: relative; margin: 0; overflow: hidden; border-radius: 1.3rem; background: var(--accent-deep) }
+.photo img { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover }
+.credit { position: absolute; right: .7rem; bottom: .6rem; font-family: var(--f-mono); font-size: .58rem; letter-spacing: .06em; color: #fff; background: rgba(10, 38, 30, .55); padding: .15rem .45rem; border-radius: 99px }
+.overlap { display: grid; width: 100%; max-width: 35rem }
+.overlap > .photo { margin-left: 16%; aspect-ratio: 4 / 3 }
+.overlap > .photo .credit { top: .7rem; bottom: auto }
+.overlap > .photo + * { position: relative; width: 86%; max-width: none; margin-top: -9rem; box-shadow: 0 1.6rem 3rem -1.4rem rgba(16, 52, 40, .45) }
+.hook-msg { border-radius: .7rem; background: var(--accent); color: var(--on-accent); padding: .85rem 1rem; font-size: .88rem; line-height: 1.45 }
+.hook-msg b { display: block; font-family: var(--f-display); font-size: 1.05rem; margin-bottom: .15rem }
+
+/* ---------- part openers (2, 7) ---------- */
+.split { flex: 1; display: grid; grid-template-columns: minmax(0, 21rem) minmax(0, 1fr); gap: 2.6rem }
+.split .stack { justify-content: center; gap: 2.6rem }
+.statement { position: relative; overflow: hidden; background: var(--accent); color: var(--on-accent); border-radius: 1.2rem; padding: 2rem 1.8rem; display: flex; flex-direction: column; justify-content: space-between; gap: 1.4rem }
+.statement > * { position: relative }
+.statement.has-photo { background: linear-gradient(165deg, var(--shade) 0%, rgba(10, 38, 30, .5) 46%, rgba(10, 38, 30, .95) 100%), var(--img) center / cover no-repeat, var(--accent-deep); background-blend-mode: normal, luminosity }
+.statement .st-letter { position: absolute; right: -1.2rem; bottom: -4.5rem; font-family: var(--f-display); font-weight: 800; font-size: 17rem; line-height: 1; color: rgba(255, 255, 255, .1); pointer-events: none }
+.st-eyebrow { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--on-accent-2) }
+.statement h2 { font-family: var(--f-display); font-size: 2.75rem; line-height: 1; letter-spacing: -.02em; font-weight: 600; margin-top: .6rem; text-wrap: balance }
+.st-def { font-size: 1.08rem; line-height: 1.45 }
+.aka { display: flex; flex-wrap: wrap; gap: .35rem }
+.aka span { font-family: var(--f-mono); font-size: .66rem; padding: .25rem .55rem; border: 1px solid rgba(255, 255, 255, .4); border-radius: 99px; color: var(--on-accent) }
+.questions { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.2rem }
+.questions li { display: grid; gap: .3rem; align-content: start; padding-top: .7rem; border-top: 2px solid var(--accent) }
+.questions b { font-family: var(--f-display); font-size: 1.08rem; font-weight: 700 }
+.questions span { font-size: .88rem; color: var(--ink-2) }
+.wrap-demo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 1.6rem; border: 1px solid var(--line); border-radius: 1rem; padding: 1.2rem; background: var(--wash) }
+.wrap-mock { background: var(--paper); border: 1px solid var(--line); border-radius: .8rem; padding: 1.1rem; display: flex; flex-direction: column; justify-content: center; gap: .65rem; min-height: 11rem }
+.mk-title { font-family: var(--f-display); font-weight: 700; font-size: 1rem }
+.mk-input { display: block; border: 1px solid var(--line); border-radius: .45rem; padding: .42rem .6rem; font-size: .8rem; color: var(--ink-2) }
+.mk-check { display: flex; gap: .55rem; align-items: center; font-size: .85rem }
+.mk-box { width: 1.05rem; height: 1.05rem; border: 2px solid var(--ink-2); border-radius: .25rem; flex: none }
+.mk-check u, .mk-fine u { color: var(--accent); font-weight: 600 }
+.mk-btn { display: block; background: var(--accent); color: var(--on-accent); border-radius: .5rem; padding: .5rem; text-align: center; font-weight: 600; font-size: .85rem }
+.mk-fine { font-size: .72rem; color: var(--ink-2); text-align: center }
+.mk-line { display: block; height: .55rem; border-radius: 99px; background: var(--accent-tint) }
+.mk-footer { display: flex; gap: .8rem; font-size: .6rem; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: .45rem; margin-top: .4rem }
+.wrap-verdict { display: grid; gap: .55rem; align-content: center }
+.meter3 { display: flex; gap: .3rem }
+.meter3 i { width: 2.6rem; height: .5rem; border-radius: 99px; background: var(--line); transition: background .3s }
+.meter3 i.on { background: var(--accent) }
+.meter3[data-level="1"] i.on { background: var(--flag) }
+.verdict-label { font-family: var(--f-display); font-weight: 700; font-size: 1.25rem }
+.wrap-text { font-size: .92rem; line-height: 1.5 }
+
+/* ---------- slide 3 ---------- */
+.clauses { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .75rem }
+.clause { display: grid; text-align: left; border: 1px solid var(--line); border-radius: var(--radius); background: var(--paper); padding: .95rem 1.05rem; transition: border-color .2s, background .25s, color .25s, opacity .3s }
+.clause:hover { border-color: var(--accent) }
+.clause .layer { grid-area: 1 / 1; display: grid; gap: .3rem; align-content: start; transition: opacity .25s }
+.clause .back { opacity: 0; visibility: hidden }
+.clause[aria-expanded="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent) }
+.clause[aria-expanded="true"] .front { opacity: 0; visibility: hidden }
+.clause[aria-expanded="true"] .back { opacity: 1; visibility: visible }
+.clause .num { display: flex; justify-content: space-between; gap: .5rem; font-family: var(--f-mono); font-size: .68rem; color: var(--accent); letter-spacing: .04em }
+.clause .tag { color: var(--ink-2) }
+.clause .back .num { color: var(--on-accent-2) }
+.c-title { font-family: var(--f-display); font-size: 1.1rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.2 }
+.c-text { font-size: .85rem; color: var(--ink-2); line-height: 1.4 }
+.clause .back .c-text { color: var(--on-accent) }
+.clauses.core-only .clause:not([data-core]) { opacity: .3 }
+.caption { font-size: .8rem; color: var(--ink-2) }
+
+/* ---------- slide 4 ---------- */
+.tabs-row { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap }
+.thumb { display: flex; align-items: center; gap: 1rem; padding: .7rem 1rem; border-radius: .8rem; background: var(--wash); border: 1px dashed var(--accent-mid); font-size: .9rem }
+.thumb b { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); white-space: nowrap }
+
+/* ---------- slide 5 ---------- */
+.two { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 2.6rem; align-items: start }
+.col { display: grid; gap: 1rem; min-width: 0 }
+.form-actions { display: flex; gap: .5rem; flex-wrap: wrap }
+.record { display: grid; gap: .45rem }
+.record-label { display: flex; align-items: center; gap: .5rem }
+.record-label::before { content: ""; width: .5rem; height: .5rem; border-radius: 50%; background: var(--accent-mid) }
+.record.fresh .record-label::before { background: var(--accent); box-shadow: 0 0 0 .3rem var(--accent-tint) }
+
+/* ---------- slide 6 ---------- */
+.scen { flex: 1; display: grid; grid-template-columns: 19rem minmax(0, 1fr); gap: 2rem; align-items: start }
+.scen-list { display: grid; gap: .5rem }
+.scen-btn { display: grid; gap: .15rem; text-align: left; border: 1px solid var(--line); border-radius: .8rem; padding: .8rem 1rem; background: var(--paper); transition: background .2s, border-color .2s, color .2s }
+.scen-btn:hover { border-color: var(--accent) }
+.scen-btn b { font-family: var(--f-display); font-size: 1.02rem }
+.scen-btn span { font-size: .8rem; color: var(--ink-2) }
+.scen-btn[aria-selected="true"] { background: var(--accent); border-color: var(--accent); color: var(--on-accent) }
+.scen-btn[aria-selected="true"] span { color: var(--on-accent-2) }
+.scen-panel { border: 1px solid var(--line); border-radius: 1rem; padding: 1.5rem 1.6rem; display: grid; gap: 1.1rem; min-width: 0 }
+.scen-panel h3 { font-family: var(--f-display); font-size: 1.6rem; letter-spacing: -.02em; line-height: 1.1 }
+.impact { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem }
+.impact > div { display: grid; gap: .35rem; align-content: start }
+.impact .lbl { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--flag); font-weight: 600 }
+.impact p:not(.lbl) { font-size: .9rem; line-height: 1.45 }
+.case, .fix { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; align-items: start; border-radius: .7rem; padding: .75rem 1rem; font-size: .9rem; line-height: 1.45 }
+.case { background: var(--flag-tint) }
+.fix { background: var(--accent-tint) }
+.case b, .fix b { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; padding-top: .2rem }
+.case b { color: var(--flag) }
+.fix b { color: var(--accent-deep) }
+
+/* ---------- slide 7 ---------- */
+.table-wrap { overflow-x: auto }
+.compare { width: 100%; border-collapse: collapse; font-size: .88rem; line-height: 1.4 }
+.compare th, .compare td { text-align: left; padding: .5rem .8rem; border-bottom: 1px solid var(--line); vertical-align: top }
+.compare thead th { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2); font-weight: 600 }
+.compare tbody th { font-weight: 600; color: var(--ink-2); width: 9.5rem }
+.compare .pp { background: var(--wash) }
+.pd-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem }
+.pd { display: grid; text-align: left; border: 1px dashed var(--accent-mid); border-radius: .75rem; padding: .7rem .85rem; background: var(--paper); transition: background .25s, border-color .25s, color .25s }
+.pd:hover { border-color: var(--accent) }
+.pd > span { grid-area: 1 / 1; display: grid; gap: .25rem; align-content: start; transition: opacity .2s }
+.pd .pd-back { opacity: 0; visibility: hidden }
+.pd[aria-pressed="true"] { border-style: solid }
+.pd[aria-pressed="true"] .pd-front { opacity: 0; visibility: hidden }
+.pd[aria-pressed="true"] .pd-back { opacity: 1; visibility: visible }
+.pd[aria-pressed="true"].yes { background: var(--accent); border-color: var(--accent); color: var(--on-accent) }
+.pd[aria-pressed="true"].no { background: var(--wash); border-color: var(--line) }
+.pd .q { font-weight: 600; font-size: .9rem; line-height: 1.3 }
+.pd .hint2 { font-family: var(--f-mono); font-size: .62rem; color: var(--ink-2); letter-spacing: .08em; text-transform: uppercase }
+.pd .v { font-family: var(--f-mono); font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 600 }
+.pd .why { font-size: .76rem; line-height: 1.35 }
+.pd.yes .v, .pd.yes .why { color: var(--on-accent-2) }
+.pd.no .v { color: var(--ink-2) }
+.btn-row { display: flex; gap: .5rem; flex-wrap: wrap }
+
+/* ---------- slide 8 ---------- */
+.audit { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 19rem; gap: 2.2rem; align-items: start }
+.items { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem .75rem }
+.item { display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: .65rem; align-items: start; padding: .6rem .8rem; border: 1px solid var(--line); border-radius: .7rem; cursor: pointer; transition: background .2s, border-color .2s }
+.item:hover { border-color: var(--accent) }
+.item:has(.cb:checked) { background: var(--wash); border-color: var(--accent-mid) }
+.item .n { font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); padding-top: .25rem }
+.item b { display: block; font-size: .94rem }
+.item small { display: block; font-size: .8rem; color: var(--ink-2); line-height: 1.35 }
+.score-card { border: 1px solid var(--line); border-radius: 1rem; padding: 1.3rem; display: grid; gap: .9rem }
+.score-big { font-family: var(--f-display); font-size: 3.6rem; font-weight: 800; letter-spacing: -.04em; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums }
+.score-big small { font-size: 1.4rem; color: var(--ink-2); letter-spacing: 0 }
+.meter { height: .6rem; background: var(--line); border-radius: 99px; overflow: hidden }
+.meter i { display: block; height: 100%; width: 0; background: var(--accent); border-radius: 99px; transition: width .45s cubic-bezier(.2, .75, .2, 1) }
+.score-status { font-size: .92rem; font-weight: 600 }
+.missing { display: flex; flex-wrap: wrap; gap: .35rem }
+.missing span { font-size: .74rem; background: var(--flag-tint); color: var(--flag); border-radius: 99px; padding: .2rem .55rem; font-weight: 600 }
+.missing em { font-size: .82rem; color: var(--accent-deep); font-style: normal; font-weight: 600 }
+
+/* ---------- slide 9 ---------- */
+.figs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.4rem }
+.fig { border-top: 3px solid var(--accent); padding-top: .55rem; display: grid; gap: .15rem; align-content: start }
+.fig b { font-family: var(--f-display); font-size: 2.4rem; font-weight: 800; letter-spacing: -.03em; line-height: 1.05; color: var(--accent) }
+.fig span { font-size: .85rem; color: var(--ink-2) }
+.reg-panel { display: grid; gap: 1.2rem }
+
+/* ---------- slide 10 ---------- */
+.lab { display: grid }
+.lab-page { display: flex; flex-direction: column; justify-content: space-between; gap: 1rem; padding: 1rem; min-height: 15rem; background: var(--paper) }
+.sk { display: grid; gap: .45rem }
+.sk i { display: block; height: .55rem; border-radius: 99px; background: var(--accent-tint) }
+.sk i:first-child { width: 38%; height: 1rem; background: var(--line) }
+.mini-hero { display: grid; align-content: end; gap: .1rem; min-height: 6.2rem; padding: .8rem 1rem; border-radius: .7rem; color: #fff; background: linear-gradient(90deg, rgba(10, 38, 30, .88), rgba(10, 38, 30, .25)), var(--img) center 40% / cover no-repeat, var(--accent-deep) }
+.mini-hero b { font-family: var(--f-display); font-size: 1.15rem; font-weight: 600 }
+.mini-hero small { font-size: .74rem; opacity: .85 }
+.lab-site { display: grid; gap: .7rem }
+.banner { border: 1px solid var(--line); border-radius: .8rem; padding: .85rem 1rem; background: var(--paper); box-shadow: 0 .8rem 2rem -1rem rgba(23, 32, 28, .35); display: grid; gap: .65rem }
+.banner p { font-size: .84rem; line-height: 1.4 }
+.banner-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem }
+.banner-actions.two-up { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+.banner .btn { padding: .5rem .6rem; font-size: .8rem }
+.big-accept { width: 100%; padding: .85rem !important; font-size: 1rem !important }
+.tiny-link { justify-self: start; font-size: .6rem; color: var(--ink-3); text-decoration: underline; background: none; border: 0; padding: 0 }
+.dp-tag { justify-self: start; font-family: var(--f-mono); font-size: .6rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; background: var(--flag); color: var(--paper); padding: .15rem .45rem; border-radius: .3rem }
+.toggles { display: grid; gap: .4rem }
+.toggle { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-size: .82rem; cursor: pointer }
+.toggle small { color: var(--ink-2) }
+.switch { appearance: none; -webkit-appearance: none; margin: 0; width: 2.2rem; height: 1.25rem; flex: none; border-radius: 99px; background: var(--line); position: relative; cursor: pointer; transition: background .2s }
+.switch::after { content: ""; position: absolute; top: .15rem; left: .15rem; width: .95rem; height: .95rem; border-radius: 50%; background: var(--paper); box-shadow: 0 1px 2px rgba(23, 32, 28, .25); transition: transform .2s }
+.switch:checked { background: var(--accent) }
+.switch:checked::after { transform: translateX(.95rem) }
+.switch:disabled { opacity: .55; cursor: default }
+.reopen { align-self: flex-start; font-size: .75rem; font-weight: 600; color: var(--accent); background: var(--accent-tint); border: 0; border-radius: 99px; padding: .3rem .75rem }
+.netlog { display: grid; gap: .45rem }
+.netlog ul { display: grid; gap: .3rem }
+.netlog li { display: grid; grid-template-columns: minmax(0, 1fr) 6rem auto; gap: .8rem; align-items: center; font-family: var(--f-mono); font-size: .74rem; padding: .38rem .6rem; border-radius: .45rem; background: var(--wash) }
+.netlog .cat { color: var(--ink-2) }
+.st { font-family: var(--f-mono); font-size: .66rem; font-weight: 600; padding: .15rem .55rem; border-radius: 99px; white-space: nowrap; justify-self: end }
+.st-loaded { background: var(--accent); color: var(--on-accent) }
+.st-waiting { background: var(--line); color: var(--ink) }
+.st-blocked { background: var(--paper); color: var(--ink); box-shadow: inset 0 0 0 1px var(--ink-2) }
+.st-bad { background: var(--flag); color: var(--paper) }
+.lab-note { font-size: .85rem; font-weight: 600; color: var(--accent-deep) }
+.lab-note.bad { color: var(--flag) }
+.gpc { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: .7rem; align-items: start; font-size: .84rem; border-top: 1px solid var(--line); padding-top: .7rem }
+.gpc .mini-label { color: var(--accent); padding-top: .15rem }
+
+/* ---------- slide 11 ---------- */
+.quiz { flex: 1; display: grid; grid-template-columns: minmax(0, 1fr) 21rem; gap: 2.4rem; align-items: start }
+.exhibit-card { border: 1px solid var(--line); border-radius: 1rem; padding: 1.3rem 1.4rem; display: grid; gap: 1rem }
+.quiz-top { display: flex; justify-content: space-between; align-items: center; gap: 1rem; font-family: var(--f-mono); font-size: .72rem; color: var(--ink-2) }
+.quiz-top b { color: var(--accent); font-weight: 600 }
+.dots { display: flex; gap: .25rem }
+.dots i { width: .9rem; height: .3rem; border-radius: 99px; background: var(--line) }
+.dots i.ok { background: var(--accent) }
+.dots i.miss { background: var(--flag) }
+.dots i.now { background: var(--ink-2) }
+.exhibit { border-radius: .8rem; background: var(--wash); border: 1px solid var(--line); padding: 1.2rem 1.3rem; display: grid; gap: .6rem; min-height: 8.5rem; align-content: center }
+.ex-label { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-2) }
+.ex-footer { display: flex; justify-content: space-between; gap: .5rem 1rem; flex-wrap: wrap; font-size: .88rem; border-top: 1px solid var(--line); padding-top: .7rem; color: var(--ink-2) }
+.ex-url { font-family: var(--f-mono); font-size: 1rem; background: var(--paper); border: 1px solid var(--line); border-radius: 99px; padding: .55rem 1rem; overflow-wrap: anywhere }
+.ex-url span { color: var(--ink-2) }
+.ex-quote { font-family: var(--f-display); font-weight: 500; font-size: 1.2rem; line-height: 1.4; letter-spacing: -.01em }
+.ex-doc { display: grid; gap: .25rem; font-size: .9rem }
+.ex-doc .t { font-family: var(--f-display); font-weight: 700; font-size: 1.2rem }
+.ex-doc u { color: var(--accent) }
+.answer-row { display: flex; gap: .6rem; flex-wrap: wrap }
+.answer-row .btn { flex: 1; min-width: 9rem }
+.verdict { border-radius: .7rem; padding: .85rem 1rem; font-size: .92rem; line-height: 1.45 }
+.verdict b { display: block; font-family: var(--f-display); font-size: 1.05rem }
+.verdict.right { background: var(--accent-tint) }
+.verdict.right b { color: var(--accent-deep) }
+.verdict.wrong { background: var(--flag-tint) }
+.verdict.wrong b { color: var(--flag) }
+.quiz-end { display: grid; gap: .5rem; text-align: center; justify-items: center; padding: 1rem 0 }
+.quiz-end b { font-family: var(--f-display); font-size: 3rem; font-weight: 800; color: var(--accent); line-height: 1 }
+.toolkit { display: grid; gap: .85rem }
+.toolkit li { display: grid; gap: .2rem; padding-top: .65rem; border-top: 1px solid var(--line) }
+.toolkit .tag { font-family: var(--f-mono); font-size: .64rem; font-weight: 600; letter-spacing: .14em; color: var(--accent) }
+.toolkit p { font-size: .87rem; line-height: 1.42 }
+
+/* ---------- slide 12 ---------- */
+.finale { flex: 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 3.5rem; align-items: center }
+.finale-copy { display: grid; gap: 1.2rem; min-width: 0 }
+.finale h2 { font-family: var(--f-display); font-size: 4.4rem; font-weight: 600; line-height: .98; letter-spacing: -.03em; text-wrap: balance }
+.finale .q-line { font-family: var(--f-display); font-size: 1.5rem; font-weight: 600; color: var(--ink-2) }
+.recap li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1rem; padding: .75rem 0; border-top: 1px solid var(--line); font-size: .93rem }
+.recap b { font-family: var(--f-display); font-size: 1.05rem; color: var(--accent) }
+.sign-card { border: 1px solid var(--line); border-radius: 1.1rem; padding: 1.5rem; display: grid; gap: 1rem; background: var(--paper); box-shadow: 0 1.4rem 3rem -1.6rem rgba(16, 52, 40, .26) }
+.sign-card .check { font-size: 1.05rem; font-weight: 600 }
+.sign-line { border-top: 2px solid var(--ink); padding-top: .4rem; font-family: var(--f-mono); font-size: .68rem; color: var(--ink-2); letter-spacing: .08em; text-transform: uppercase }
+.final-rec { border-radius: .7rem; background: var(--accent); color: var(--on-accent); padding: .8rem 1rem; font-size: .88rem; display: grid; gap: .2rem }
+.final-rec .mini-label { color: var(--on-accent-2) }
+.hw ol { list-style: decimal; padding-left: 1.3rem; display: grid; gap: .35rem; font-size: .9rem }
+.hw ol li::marker { color: var(--accent); font-weight: 700 }
+.kit-teaser { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .9rem; text-align: left; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: .9rem; background: #fff; transition: border-color .2s, transform .2s }
+.kit-teaser:hover { border-color: var(--accent) }
+.kit-teaser:hover > .ic { transform: translateX(.2rem) }
+.kit-teaser .step-ic { background: var(--mark); color: var(--mark-ink) }
+.kit-teaser b { display: block; font-size: .98rem }
+.kit-teaser small { display: block; font-size: .82rem; color: var(--ink-2) }
+.kit-teaser > .ic { color: var(--accent); transition: transform .2s }
+
+/* ---------- slide 13 · prompt kit ---------- */
+.ic { width: 1rem; height: 1rem; flex: none }
+.kit-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .8rem }
+.kit-steps li { display: flex; align-items: center; gap: .7rem; min-width: 0; font-size: .8rem; line-height: 1.3; color: var(--ink-2) }
+.kit-steps b { display: block; font-size: .9rem; color: var(--ink) }
+.step-ic { position: relative; display: grid; place-items: center; width: 2.3rem; height: 2.3rem; flex: none; border-radius: .7rem; background: var(--accent-tint); color: var(--accent-deep) }
+.step-ic .ic { width: 1.15rem; height: 1.15rem }
+.step-ic[data-n]::after { content: attr(data-n); position: absolute; top: -.35rem; right: -.35rem; width: 1.05rem; height: 1.05rem; border-radius: 50%; background: var(--accent); color: var(--on-accent); font: 600 .58rem/1.05rem var(--f-mono); text-align: center }
+.kit-steps li:first-child .step-ic { background: var(--mark); color: var(--mark-ink) }
+
+.kit { flex: 1 1 0; min-height: 25rem; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); grid-template-rows: minmax(0, 1fr); gap: 1.3rem }
+.kit-panel { display: flex; flex-direction: column; min-height: 0; min-width: 0; border: 1px solid var(--line); border-radius: 1rem; background: #fff; overflow: hidden }
+.kit-bar { display: flex; align-items: center; justify-content: space-between; gap: .5rem .9rem; flex-wrap: wrap; padding: .6rem .8rem .6rem 1rem; background: var(--wash); border-bottom: 1px solid var(--line) }
+.kit-bar .btn-row { gap: .35rem }
+.kit-progress { display: flex; align-items: center; gap: .6rem; font-size: .8rem; color: var(--ink-2); white-space: nowrap }
+.kit-progress b { color: var(--ink); font-variant-numeric: tabular-nums }
+.kit-progress .meter { width: 4.5rem; height: .4rem }
+.kit-scroll { flex: 1; min-height: 0; overflow-y: auto; padding: .9rem 1rem 1.1rem; display: grid; gap: 1.05rem; align-content: start }
+.kit-group { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem .75rem; min-width: 0 }
+.kit-legend { grid-column: 1 / -1; font-family: var(--f-mono); font-size: .64rem; letter-spacing: .14em; text-transform: uppercase; font-weight: 600; color: var(--accent) }
+.kf { display: grid; gap: .3rem; min-width: 0 }
+.kf.wide { grid-column: 1 / -1 }
+.kf-label { display: flex; align-items: center; gap: .45rem; font-size: .78rem; font-weight: 600; color: var(--ink-2); min-width: 0 }
+.kf-ic { display: grid; place-items: center; width: 1.45rem; height: 1.45rem; flex: none; border-radius: .4rem; background: var(--mark); color: var(--mark-ink); transition: background .2s, color .2s }
+.kf-ic .ic { width: .85rem; height: .85rem }
+.kf-ok { margin-left: auto; display: grid; place-items: center; color: var(--accent); opacity: 0; transform: scale(.5); transition: opacity .2s, transform .25s cubic-bezier(.2, .75, .2, 1) }
+.kf.is-filled .kf-ic { background: var(--accent-tint); color: var(--accent-deep) }
+.kf.is-filled .kf-ok { opacity: 1; transform: none }
+.kf-input { font-size: .86rem; padding: .5rem .7rem; border-color: var(--mark-line); background: #FFFCEF }
+.kf.is-filled .kf-input { border-color: var(--line); background: #fff }
+textarea.kf-input { display: block; resize: vertical; min-height: 2.5rem; line-height: 1.4 }
+.kf-input::placeholder { color: var(--ink-3) }
+
+.prompt-file { display: inline-flex; align-items: center; gap: .45rem; flex: 1; min-width: 0; font-family: var(--f-mono); font-size: .74rem; font-weight: 600; color: var(--ink) }
+.prompt-file small { font-weight: 400; color: var(--ink-3); white-space: nowrap }
+#kitFile { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap }
+.prompt-actions { display: flex; align-items: center; gap: .35rem }
+.copy-btn { min-width: 8.6rem }
+.copy-btn .ic-ok, .copy-btn.copied .ic-copy { display: none }
+.copy-btn.copied .ic-ok { display: block }
+.copy-btn.copied { background: var(--accent-deep); border-color: var(--accent-deep) }
+.icon-only { padding: .45rem; width: 2.1rem; height: 2.1rem }
+.prompt-body { position: relative; flex: 1; min-height: 0; overflow-y: auto; margin: 0; padding: 1rem 1.25rem 1.3rem; font-family: var(--f-body); font-size: .84rem; line-height: 1.65; white-space: pre-wrap; overflow-wrap: anywhere }
+.prompt-body:focus-visible { outline-offset: -3px }
+.pl-h { font-family: var(--f-mono); font-size: .7rem; font-weight: 600; letter-spacing: .12em; color: var(--accent) }
+.ph { font: inherit; font-weight: 700; color: var(--mark-ink); background: var(--mark); border-radius: .3rem; padding: .04rem .3rem; cursor: pointer; -webkit-box-decoration-break: clone; box-decoration-break: clone; transition: background .2s, color .2s, box-shadow .2s }
+.ph:hover { box-shadow: 0 0 0 2px var(--mark-line) }
+.ph.filled { font-weight: 600; color: var(--accent-deep); background: var(--accent-tint) }
+.ph.filled:hover { box-shadow: 0 0 0 2px var(--accent-mid) }
+.ph.is-focus { box-shadow: 0 0 0 2px var(--accent) }
+.prompt-foot { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem 1.1rem; padding: .55rem 1rem; border-top: 1px solid var(--line); background: var(--wash); font-size: .74rem; color: var(--ink-2) }
+.prompt-foot .ph { cursor: default; font-size: .7rem; box-shadow: none }
+.prompt-foot .tip { margin-left: auto }
+.kit-fine { display: flex; gap: .5rem; align-items: center }
+.kit-fine .ic { color: var(--accent) }
+
+/* ---------- overlays ---------- */
+.notes { position: fixed; top: 0; right: 0; bottom: 0; z-index: 30; width: min(27rem, 100%); background: var(--paper); border-left: 1px solid var(--line); box-shadow: -1.5rem 0 3rem -1.5rem rgba(23, 32, 28, .3); display: flex; flex-direction: column; gap: 1.1rem; padding: calc(1.2rem + env(safe-area-inset-top, 0px)) 1.4rem calc(1.2rem + env(safe-area-inset-bottom, 0px)); overflow-y: auto; transform: translateX(100%); visibility: hidden; transition: transform .35s cubic-bezier(.2, .75, .2, 1), visibility 0s linear .35s }
+.notes.open { transform: none; visibility: visible; transition: transform .35s cubic-bezier(.2, .75, .2, 1), visibility 0s }
+.notes-head { display: flex; justify-content: space-between; align-items: start; gap: 1rem }
+.notes-head h2 { font-family: var(--f-display); font-size: 1.3rem; letter-spacing: -.01em; line-height: 1.2 }
+.icon-btn { display: grid; place-items: center; width: 2.2rem; height: 2.2rem; flex: none; border-radius: 50%; border: 1px solid var(--line); background: var(--paper) }
+.icon-btn:hover { border-color: var(--accent); color: var(--accent) }
+.icon-btn svg { width: 1rem; height: 1rem }
+.note-block { display: grid; gap: .45rem; padding-top: .9rem; border-top: 1px solid var(--line); font-size: .95rem; line-height: 1.5 }
+.note-block .mini-label { color: var(--accent) }
+.note-block .ask { font-family: var(--f-display); font-size: 1.12rem; font-weight: 600; line-height: 1.35 }
+.note-block .btn { justify-self: start }
+.answer { background: var(--wash); border-radius: .6rem; padding: .7rem .85rem; font-size: .9rem }
+.note-block.fact { background: var(--wash); border: 0; border-radius: .8rem; padding: .9rem 1rem }
+.overview { position: fixed; inset: 0; z-index: 40; background: rgba(250, 248, 243, .97); display: flex; flex-direction: column; gap: 1.4rem; padding: calc(1.6rem + env(safe-area-inset-top, 0px)) var(--gutter) calc(1.6rem + env(safe-area-inset-bottom, 0px)); overflow-y: auto; opacity: 0; visibility: hidden; transition: opacity .25s, visibility 0s linear .25s }
+.overview.open { opacity: 1; visibility: visible; transition: opacity .25s, visibility 0s }
+.ov-head { display: flex; justify-content: space-between; align-items: center; gap: 1rem; max-width: 88rem; width: 100%; margin-inline: auto }
+.ov-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .9rem; max-width: 88rem; width: 100%; margin-inline: auto }
+.ov-card { display: grid; gap: .35rem; align-content: space-between; text-align: left; border: 1px solid var(--line); border-radius: .9rem; padding: 1rem 1.1rem; background: var(--paper); min-height: 7.5rem; transition: border-color .2s, background .2s }
+.ov-card:hover { border-color: var(--accent); background: var(--wash) }
+.ov-card[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) }
+.ov-num { font-family: var(--f-display); font-weight: 800; font-size: 2rem; color: var(--accent); line-height: 1 }
+.ov-part { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-2) }
+.ov-title { font-weight: 600; font-size: .98rem }
+.toast { position: fixed; left: 50%; bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)); z-index: 50; transform: translate(-50%, 1rem); background: var(--ink); color: var(--paper); font-size: .85rem; padding: .6rem 1rem; border-radius: 99px; opacity: 0; pointer-events: none; transition: opacity .25s, transform .25s; max-width: calc(100% - 32px); text-align: center }
+.toast.show { opacity: 1; transform: translate(-50%, 0) }
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  html { font-size: 15px }
+  .hero, .split, .two, .scen, .audit, .quiz, .finale { grid-template-columns: minmax(0, 1fr); gap: 1.8rem; align-items: start }
+  .hero h1 { font-size: 3.2rem }
+  .finale h2 { font-size: 3rem }
+  .title { font-size: 2rem }
+  .overlap { max-width: 32rem; margin-inline: auto }
+  .overlap > .photo + * { margin-top: -6rem }
+  .statement { padding: 1.5rem }
+  .statement h2 { font-size: 2.3rem }
+  .statement .st-letter { font-size: 11rem; bottom: -3rem }
+  .questions { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .wrap-demo { grid-template-columns: minmax(0, 1fr) }
+  .clauses { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .law { grid-template-columns: minmax(0, 1fr); gap: .4rem }
+  .impact { grid-template-columns: minmax(0, 1fr); gap: .9rem }
+  .case, .fix { grid-template-columns: minmax(0, 1fr); gap: .25rem }
+  .pd-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .items { grid-template-columns: minmax(0, 1fr) }
+  .figs { grid-template-columns: minmax(0, 1fr); gap: .8rem }
+  .fig { grid-template-columns: 7.5rem minmax(0, 1fr); align-items: baseline; gap: .8rem }
+  .fig b { font-size: 1.8rem }
+  .ov-grid { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .tool-label, .tool kbd, .brand-name, .nav-label { display: none }
+  .tool { padding: .45rem }
+  .nav-btn { padding: .6rem .75rem }
+  .netlog li { grid-template-columns: minmax(0, 1fr) auto }
+  .netlog .cat { display: none }
+  .kit-steps { grid-template-columns: repeat(2, minmax(0, 1fr)) }
+  .kit { flex: none; min-height: 0; grid-template-columns: minmax(0, 1fr); grid-template-rows: none }
+  .kit-scroll, .prompt-body { flex: none; overflow: visible }
+  .prompt-foot .tip { margin-left: 0 }
+}
+@media (max-width: 520px) {
+  .questions, .clauses { grid-template-columns: minmax(0, 1fr) }
+  .hero h1 { font-size: 2.7rem }
+  .banner-actions { grid-template-columns: minmax(0, 1fr) }
+  .part-label { display: none }
+  .counter { display: none }
+  .kit-steps, .kit-group { grid-template-columns: minmax(0, 1fr) }
+  .overlap > .photo { margin-left: 8% }
+  .overlap > .photo + * { width: 94%; margin-top: -4rem }
+  .prompt-body { padding: .9rem 1rem 1.1rem }
+}
+@media (prefers-reduced-motion: reduce) {
+  .slide, .slide.is-past { transform: none; transition: opacity .2s ease, visibility 0s linear .2s }
+  .slide.is-active { transform: none; transition: opacity .2s ease, visibility 0s }
+  .slide.is-active .rise, .swap { animation: none }
+  .notes, .notes.open, .overview, .toast { transition: none }
+}
+</style>
+
+<div class="deck" id="deck">
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true">§</span><span class="brand-name">Terms &amp; Privacy, Decoded</span></div>
+    <p class="part-label" id="partLabel">Welcome</p>
+    <div class="tools">
+      <button class="tool" id="notesBtn" type="button" aria-pressed="false" aria-controls="notes" title="Teacher notes (N)">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M5 3h10v14H5z"/><path d="M8 7h4M8 10h4M8 13h2"/></svg>
+        <span class="tool-label">Teacher notes</span><kbd>N</kbd></button>
+      <button class="tool" id="overviewBtn" type="button" aria-pressed="false" aria-controls="overview" title="All slides (O)">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="11" y="3" width="6" height="6" rx="1"/><rect x="3" y="11" width="6" height="6" rx="1"/><rect x="11" y="11" width="6" height="6" rx="1"/></svg>
+        <span class="tool-label">All slides</span><kbd>O</kbd></button>
+      <button class="tool" id="fsBtn" type="button" title="Fullscreen (F)">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M3 7V3h4M13 3h4v4M17 13v4h-4M7 17H3v-4"/></svg>
+        <span class="tool-label">Fullscreen</span><kbd>F</kbd></button>
+    </div>
+  </header>
+
+  <main class="stage" id="stage">
+
+    <!-- 1 · Welcome -->
+    <section class="slide" id="s1" data-title="Welcome" data-part="Welcome" data-group="intro" aria-label="Slide 1: Welcome">
+      <div class="frame">
+        <div class="hero">
+          <div class="hero-copy">
+            <p class="eyebrow rise" style="--i:0">Front-end development · Lesson</p>
+            <h1 class="rise" style="--i:1">Terms &amp; Privacy, <span>Decoded</span></h1>
+            <p class="lede rise" style="--i:2">Welcome! Today we open the two documents every website has and almost nobody reads. We'll see what goes inside them, what the EU, USA and Georgia require, and how front-end developers build them into the interface.</p>
+            <div class="agenda rise" style="--i:3">
+              <button type="button" data-go="1"><span class="ag-letter">A</span><span><b>Terms &amp; Conditions</b><small>The rules of the website</small></span><span class="ag-range">Slides 2–6</span></button>
+              <button type="button" data-go="6"><span class="ag-letter">B</span><span><b>Privacy Policy</b><small>What happens to user data</small></span><span class="ag-range">Slides 7–11</span></button>
+              <button type="button" data-go="11"><span class="ag-letter">C</span><span><b>Wrap-up</b><small>Recap, homework, questions</small></span><span class="ag-range">Slide 12</span></button>
+              <button type="button" data-go="12"><span class="ag-letter">D</span><span><b>Bonus: AI prompt kit</b><small>Generate your own policy</small></span><span class="ag-range">Slide 13</span></button>
+            </div>
+            <div class="hero-actions rise" style="--i:4">
+              <button class="btn" type="button" data-go="1">Start the lesson
+                <svg viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+              <p class="hint">← → or Space to move · N for teacher notes</p>
+            </div>
+          </div>
+          <div class="hook-wrap rise" style="--i:2">
+            <div class="overlap">
+            <figure class="photo">
+              <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&amp;fit=crop&amp;w=1100&amp;h=825&amp;q=80" alt="" style="object-position:60% 50%">
+              <figcaption class="credit">Photo · Unsplash</figcaption>
+            </figure>
+            <div class="browser hook-card">
+              <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">rionibooks.ge/signup</span></div>
+              <form class="browser-body" id="hookForm" novalidate>
+                <p class="mock-title">Create your account</p>
+                <div class="field"><label for="hookEmail">Email</label><input class="input" id="hookEmail" type="email" value="nino@example.ge" autocomplete="off"></div>
+                <label class="check" for="hookAgree"><input type="checkbox" class="cb" id="hookAgree"><span>I agree to the <a href="#s2" data-go="1">Terms of Service</a> and <a href="#s7" data-go="6">Privacy Policy</a></span></label>
+                <p class="form-error" id="hookErr" role="alert" hidden>Tick the box first. Everyone does.</p>
+                <button class="btn btn-block" type="submit">Sign up</button>
+                <div class="hook-msg" id="hookMsg" role="status" hidden><b>Done. You just accepted a contract.</b>91% of people accept online terms without reading them (Deloitte, 2017). Today, we read them.</div>
+              </form>
+            </div>
+            </div>
+            <p class="fine">Try it: tick the box. Educational overview, not legal advice.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2 · Terms overview -->
+    <section class="slide" id="s2" data-title="What terms are for" data-part="Part A · Terms &amp; Conditions" data-group="a" aria-label="Slide 2: What terms are for">
+      <div class="frame">
+        <div class="split">
+          <div class="statement has-photo rise" style="--i:0; --img:url('https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&amp;fit=crop&amp;w=900&amp;h=1200&amp;q=75')">
+            <span class="st-letter" aria-hidden="true">A</span>
+            <div>
+              <p class="st-eyebrow">Part A · Slides 2–6</p>
+              <h2>Terms &amp; Conditions</h2>
+            </div>
+            <p class="st-def">The rulebook. A contract between your website and every person who uses it.</p>
+            <div class="aka" aria-label="Also called"><span>Terms of Service</span><span>Terms of Use</span><span>User Agreement</span><span>EULA</span></div>
+          </div>
+          <div class="stack">
+            <section class="rise" style="--i:1">
+              <p class="eyebrow">§ A.1 · Overview</p>
+              <h3 class="block-title">Four questions every set of terms answers</h3>
+              <ul class="questions">
+                <li><b>Who may use it?</b><span>Minimum age, countries, account rules.</span></li>
+                <li><b>What is allowed?</b><span>Acceptable use, user content, copyright.</span></li>
+                <li><b>What do we promise?</b><span>The service, prices, refunds, and what we don't guarantee.</span></li>
+                <li><b>What if it goes wrong?</b><span>Liability limits, account bans, disputes and courts.</span></li>
+              </ul>
+            </section>
+            <section class="rise" style="--i:2">
+              <div class="block-head">
+                <h3 class="block-title">How do users agree?</h3>
+                <div class="seg-ctl" role="tablist" aria-label="Agreement styles" id="wrapTabs">
+                  <button type="button" role="tab" data-key="click" aria-selected="true" aria-controls="wrapPanel">Clickwrap</button>
+                  <button type="button" role="tab" data-key="signin" aria-selected="false" aria-controls="wrapPanel">Sign-in wrap</button>
+                  <button type="button" role="tab" data-key="browse" aria-selected="false" aria-controls="wrapPanel">Browsewrap</button>
+                </div>
+              </div>
+              <div class="wrap-demo" role="tabpanel" id="wrapPanel" aria-label="Agreement style">
+                <div class="wrap-mock" id="wrapMock" aria-hidden="true"></div>
+                <div class="wrap-verdict">
+                  <div class="meter3" id="wrapMeter" aria-hidden="true"><i></i><i></i><i></i></div>
+                  <p class="verdict-label" id="wrapLabel"></p>
+                  <p class="wrap-text" id="wrapText"></p>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3 · Inside the terms -->
+    <section class="slide" id="s3" data-title="What's inside the terms" data-part="Part A · Terms &amp; Conditions" data-group="a" aria-label="Slide 3: What's inside the terms">
+      <div class="frame">
+        <div class="head-row">
+          <div class="head rise" style="--i:0">
+            <p class="eyebrow">§ A.2 · Inside the terms</p>
+            <h2 class="title">What's inside the terms</h2>
+            <p class="lede">Twelve standard clauses. Click a card to read it in plain words, the way a real shop would write it.</p>
+          </div>
+          <div class="head-actions rise" style="--i:1">
+            <button class="btn btn-ghost btn-sm" type="button" id="coreBtn" aria-pressed="false">Highlight the core 8</button>
+            <button class="btn btn-ghost btn-sm" type="button" id="openAll">Open all</button>
+          </div>
+        </div>
+        <div class="clauses rise" style="--i:2" id="clauses"></div>
+        <p class="caption rise" style="--i:3">Examples use Rioni Books, a fictional bookshop in Tbilisi. “Core” clauses belong on every website; the others depend on what the site does.</p>
+      </div>
+    </section>
+
+    <!-- 4 · Terms standards -->
+    <section class="slide" id="s4" data-title="Rules for terms by region" data-part="Part A · Terms &amp; Conditions" data-group="a" aria-label="Slide 4: Rules for terms by region">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ A.3 · Standards</p>
+          <h2 class="title">Rules for terms in the EU, USA and Georgia</h2>
+          <p class="lede">There's no single world standard. Each region adds its own rules on top of basic contract law.</p>
+        </div>
+        <div class="tabs-row rise" style="--i:1">
+          <div class="seg-ctl" role="tablist" aria-label="Region" id="tcTabs">
+            <button type="button" role="tab" data-key="eu" aria-selected="true" aria-controls="tcLaws">European Union</button>
+            <button type="button" role="tab" data-key="us" aria-selected="false" aria-controls="tcLaws">United States</button>
+            <button type="button" role="tab" data-key="ge" aria-selected="false" aria-controls="tcLaws">Georgia</button>
+          </div>
+          <p class="fine">Summarised for teaching, October 2026</p>
+        </div>
+        <div class="law-list rise" style="--i:2" id="tcLaws" role="tabpanel" aria-label="Rules"></div>
+        <p class="thumb rise" style="--i:3"><b>Rule of thumb</b><span>Design for the EU standard first; Georgia's laws follow the EU direction. Then add local extras for the USA.</span></p>
+      </div>
+    </section>
+
+    <!-- 5 · Front end for terms -->
+    <section class="slide" id="s5" data-title="Agreement in the interface" data-part="Part A · Terms &amp; Conditions" data-group="a" aria-label="Slide 5: Agreement in the interface">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ A.4 · Front end</p>
+          <h2 class="title">Building agreement into the interface</h2>
+          <p class="lede">Lawyers write the terms. Front-end developers make the agreement real, provable and fair.</p>
+        </div>
+        <div class="two">
+          <div class="col rise" style="--i:1">
+            <div class="browser">
+              <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">rionibooks.ge/signup</span></div>
+              <form class="browser-body" id="tcForm" novalidate>
+                <div class="field"><label for="tcEmail">Email</label><input class="input" id="tcEmail" type="email" value="nino@example.ge" autocomplete="off"></div>
+                <label class="check" for="tcAgree"><input type="checkbox" class="cb" id="tcAgree" aria-describedby="tcErr"><span>I agree to the <a href="#s3" data-go="2">Terms of Service</a>.</span></label>
+                <p class="form-note">We'll use your email as described in our <a class="legal-link" href="#s8" data-go="7">Privacy Policy</a>.</p>
+                <p class="form-error" id="tcErr" role="alert" hidden>Please accept the Terms of Service to create an account.</p>
+                <div class="form-actions"><button class="btn" type="submit">Create account</button><button class="btn btn-ghost" type="button" id="tcReset">Reset</button></div>
+              </form>
+            </div>
+            <div class="record" id="tcRecordWrap">
+              <p class="record-label mini-label" id="tcRecLabel">Consent record the server stores (example)</p>
+              <pre class="code" id="tcRecord">{
+  "email": "nino@example.ge",
+  "termsVersion": "2026-09-01",
+  "acceptedAt": "2026-10-06T09:41:00Z",
+  "method": "checkbox"
+}</pre>
+            </div>
+          </div>
+          <div class="col rise" style="--i:2">
+            <div class="block-head">
+              <h3 class="block-title">Front-end rules</h3>
+              <div class="seg-ctl" role="tablist" aria-label="View" id="s5Tabs">
+                <button type="button" role="tab" data-key="rules" aria-selected="true" aria-controls="s5rules">Rules</button>
+                <button type="button" role="tab" data-key="code" aria-selected="false" aria-controls="s5code">Code</button>
+              </div>
+            </div>
+            <ul class="rules" id="s5rules" role="tabpanel">
+              <li><span><b>Unchecked by default.</b> A pre-ticked box is not agreement.</span></li>
+              <li><span><b>Links that look like links.</b> Underlined, high contrast, right beside the button.</span></li>
+              <li><span><b>Readable without leaving.</b> Open the terms in a new tab or a modal and keep what the user typed.</span></li>
+              <li><span><b>Save proof.</b> Send the terms version and a timestamp with the request.</span></li>
+              <li><span><b>Version everything.</b> “Last updated” at the top; old versions at stable URLs like /terms/2025-11-10.</span></li>
+              <li><span><b>Explain, don't block.</b> A real &lt;label&gt;, keyboard support and an inline error instead of a silent grey button.</span></li>
+              <li><span><b>Ask again on big changes.</b> Show the new terms at next login and record a fresh acceptance.</span></li>
+            </ul>
+            <pre class="code" id="s5code" role="tabpanel" hidden><span class="c">// signup.js: an agreement that holds up in a dispute</span>
+form.addEventListener(<span class="s">'submit'</span>, <span class="k">async</span> (e) =&gt; {
+  e.preventDefault();
+  <span class="k">if</span> (!agree.checked) {
+    error.hidden = <span class="k">false</span>;   <span class="c">// explain, don't just disable</span>
+    agree.focus();
+    <span class="k">return</span>;
+  }
+  <span class="k">await</span> fetch(<span class="s">'/api/signup'</span>, {
+    method: <span class="s">'POST'</span>,
+    headers: { <span class="s">'Content-Type'</span>: <span class="s">'application/json'</span> },
+    body: JSON.stringify({
+      email: email.value,
+      termsVersion: <span class="s">'2026-09-01'</span>,
+      acceptedAt: <span class="k">new</span> Date().toISOString(),
+    }),
+  });
+});</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6 · When terms fail -->
+    <section class="slide" id="s6" data-title="When terms fail" data-part="Part A · Terms &amp; Conditions" data-group="a" aria-label="Slide 6: When terms fail">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ A.5 · Risks</p>
+          <h2 class="title">When terms are missing, vague or deleted</h2>
+          <p class="lede">Pick a scenario to see what happens legally, for the business, and in front of users.</p>
+        </div>
+        <div class="scen">
+          <div class="scen-list rise" style="--i:1" role="tablist" aria-orientation="vertical" aria-label="Scenarios" id="scenTabs"></div>
+          <div class="scen-panel rise" style="--i:2" role="tabpanel" id="scenPanel" aria-live="polite"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7 · Privacy overview -->
+    <section class="slide" id="s7" data-title="What a privacy policy is for" data-part="Part B · Privacy Policy" data-group="b" aria-label="Slide 7: What a privacy policy is for">
+      <div class="frame">
+        <div class="split">
+          <div class="statement has-photo rise" style="--i:0; --img:url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?auto=format&amp;fit=crop&amp;w=900&amp;h=1200&amp;q=75')">
+            <span class="st-letter" aria-hidden="true">B</span>
+            <div>
+              <p class="st-eyebrow">Part B · Slides 7–11</p>
+              <h2>Privacy Policy</h2>
+            </div>
+            <p class="st-def">Your promises about data. A public notice that says what you collect, why, who gets it, and what rights people have.</p>
+            <div class="aka" aria-label="Also called"><span>Privacy Notice</span><span>Privacy Statement</span><span>Data Policy</span></div>
+          </div>
+          <div class="stack">
+            <section class="rise" style="--i:1">
+              <p class="eyebrow">§ B.1 · Overview</p>
+              <h3 class="block-title">Two documents, two jobs</h3>
+              <div class="table-wrap">
+                <table class="compare">
+                  <thead><tr><th scope="col"><span class="sr-only">Question</span></th><th scope="col">Terms &amp; Conditions</th><th scope="col" class="pp">Privacy Policy</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Job</th><td>Rules users must follow</td><td class="pp">Promises about personal data</td></tr>
+                    <tr><th scope="row">Mainly protects</th><td>The business</td><td class="pp">The user</td></tr>
+                    <tr><th scope="row">Required by law?</th><td>Expected for shops and platforms</td><td class="pp">Yes, once you collect any personal data</td></tr>
+                    <tr><th scope="row">The user…</th><td>Agrees to it (a contract)</td><td class="pp">Reads it (a notice). Consent is asked separately.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+            <section class="rise" style="--i:2">
+              <div class="block-head">
+                <h3 class="block-title">Is it personal data? Vote, then click.</h3>
+                <div class="btn-row"><button class="btn btn-ghost btn-sm" type="button" id="pdAll">Reveal all</button><button class="btn btn-ghost btn-sm" type="button" id="pdReset">Reset</button></div>
+              </div>
+              <div class="pd-grid" id="pdGrid"></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8 · Inside a privacy policy -->
+    <section class="slide" id="s8" data-title="What's inside a privacy policy" data-part="Part B · Privacy Policy" data-group="b" aria-label="Slide 8: What's inside a privacy policy">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ B.2 · Inside the policy</p>
+          <h2 class="title">What's inside a privacy policy</h2>
+          <p class="lede">Twelve sections answer every question a user or regulator will ask. Tick what a site includes to see what's missing.</p>
+        </div>
+        <div class="audit">
+          <div class="items rise" style="--i:1" id="ppItems"></div>
+          <aside class="score-card rise" style="--i:2" aria-label="Audit result">
+            <p class="mini-label" id="ppSource">Example audit: a small online shop</p>
+            <p class="score-big" aria-live="polite"><span id="ppScore">0</span><small> / 12</small></p>
+            <div class="meter" aria-hidden="true"><i id="ppMeter"></i></div>
+            <p class="score-status" id="ppStatus"></p>
+            <div class="record"><p class="mini-label">Missing</p><div class="missing" id="ppMissing"></div></div>
+            <div class="btn-row">
+              <button class="btn btn-ghost btn-sm" type="button" id="ppExample">Load example</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="ppAll">Tick all</button>
+              <button class="btn btn-ghost btn-sm" type="button" id="ppClear">Clear</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9 · Privacy standards -->
+    <section class="slide" id="s9" data-title="Privacy rules by region" data-part="Part B · Privacy Policy" data-group="b" aria-label="Slide 9: Privacy rules by region">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ B.3 · Standards</p>
+          <h2 class="title">Privacy rules in the EU, USA and Georgia</h2>
+          <p class="lede">Personal-data rules are stricter than contract rules, and the fines are bigger.</p>
+        </div>
+        <div class="tabs-row rise" style="--i:1">
+          <div class="seg-ctl" role="tablist" aria-label="Region" id="ppTabs">
+            <button type="button" role="tab" data-key="eu" aria-selected="true" aria-controls="ppPanel">European Union</button>
+            <button type="button" role="tab" data-key="us" aria-selected="false" aria-controls="ppPanel">United States</button>
+            <button type="button" role="tab" data-key="ge" aria-selected="false" aria-controls="ppPanel">Georgia</button>
+          </div>
+          <p class="fine">Summarised for teaching, October 2026 · Not legal advice</p>
+        </div>
+        <div class="reg-panel rise" style="--i:2" id="ppPanel" role="tabpanel" aria-label="Rules">
+          <div class="figs" id="ppFigs"></div>
+          <div class="law-list" id="ppLaws"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10 · Privacy in the browser -->
+    <section class="slide" id="s10" data-title="Privacy in the browser" data-part="Part B · Privacy Policy" data-group="b" aria-label="Slide 10: Privacy in the browser">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ B.4 · Front end</p>
+          <h2 class="title">Privacy in the browser</h2>
+          <p class="lede">Every script you load is a promise in your privacy policy. Try the banner and watch what loads.</p>
+        </div>
+        <div class="two">
+          <div class="col rise" style="--i:1">
+            <div class="block-head">
+              <h3 class="block-title">Consent banner lab</h3>
+              <div class="btn-row">
+                <div class="seg-ctl" role="tablist" aria-label="Banner design" id="labTabs">
+                  <button type="button" role="tab" data-key="fair" aria-selected="true" aria-controls="labPanel">Fair banner</button>
+                  <button type="button" role="tab" data-key="dark" aria-selected="false" aria-controls="labPanel">Dark pattern</button>
+                </div>
+                <button class="btn btn-ghost btn-sm" type="button" id="labReset">Reset</button>
+              </div>
+            </div>
+            <div class="browser lab" id="labPanel" role="tabpanel" aria-label="Simulated website">
+              <div class="browser-bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="url">rionibooks.ge</span></div>
+              <div class="lab-page">
+                <div class="lab-site" aria-hidden="true">
+                  <div class="mini-hero" style="--img:url('https://images.unsplash.com/photo-1507842217343-583bb7270b66?auto=format&amp;fit=crop&amp;w=1000&amp;h=360&amp;q=75')"><b>Rioni Books</b><small>New &amp; used books · Tbilisi</small></div>
+                  <div class="sk"><i></i><i style="width:92%"></i><i style="width:80%"></i></div>
+                </div>
+                <div class="banner" id="banner" role="region" aria-label="Cookie banner"></div>
+                <button type="button" class="reopen" id="reopen" hidden>Privacy choices</button>
+              </div>
+            </div>
+            <div class="netlog">
+              <p class="mini-label">Network · what actually loads</p>
+              <ul id="netlog"></ul>
+              <p class="lab-note" id="labNote" aria-live="polite"></p>
+            </div>
+            <p class="gpc"><span class="mini-label">Live check</span><span id="gpc"></span></p>
+          </div>
+          <div class="col rise" style="--i:2">
+            <h3 class="block-title">Front-end rules</h3>
+            <ul class="rules">
+              <li><span><b>Nothing before consent.</b> Analytics and ad scripts wait for a clear “yes”.</span></li>
+              <li><span><b>Equal buttons.</b> “Reject all” as easy to find and click as “Accept all”.</span></li>
+              <li><span><b>No pre-ticked boxes.</b> One switch per purpose, all off by default.</span></li>
+              <li><span><b>Ask for less.</b> Every form field needs a reason you could write in the policy.</span></li>
+              <li><span><b>Keep data out of URLs.</b> No emails or IDs in query strings, logs or analytics events.</span></li>
+              <li><span><b>Honor signals and rights.</b> Read Global Privacy Control; offer “Download my data” and “Delete account”.</span></li>
+            </ul>
+            <pre class="code"><span class="c">// consent.js: trackers wait for a clear yes</span>
+<span class="k">const</span> consent = readConsent(); <span class="c">// { analytics: false, ads: false }</span>
+<span class="k">if</span> (navigator.globalPrivacyControl) {
+  consent.ads = <span class="k">false</span>; <span class="c">// treat as "Do Not Sell or Share"</span>
+}
+<span class="k">if</span> (consent.analytics) loadScript(<span class="s">'/js/analytics.js'</span>);
+<span class="k">if</span> (consent.ads) loadScript(<span class="s">'/js/ads-pixel.js'</span>);</pre>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 · Real or fake -->
+    <section class="slide" id="s11" data-title="Real site or fake site?" data-part="Part B · Privacy Policy" data-group="b" aria-label="Slide 11: Real site or fake site?">
+      <div class="frame">
+        <div class="head rise" style="--i:0">
+          <p class="eyebrow">§ B.5 · Spot the fake</p>
+          <h2 class="title">Real site or fake site?</h2>
+          <p class="lede">Fake and careless sites give themselves away in their legal pages. Judge each exhibit, then use the toolkit on real sites.</p>
+        </div>
+        <div class="quiz">
+          <div class="exhibit-card rise" style="--i:1" id="quizCard">
+            <div class="quiz-top"><span id="qCount">Exhibit 1 of 8</span><span class="dots" id="qDots" aria-hidden="true"></span><span>Score <b id="qScore">0</b></span></div>
+            <div id="qBody">
+              <div class="exhibit"><p class="ex-label" id="qLabel"></p><div id="qEx"></div></div>
+            </div>
+            <div class="answer-row" id="qAnswers">
+              <button class="btn" type="button" data-real="1">Looks real</button>
+              <button class="btn btn-ghost" type="button" data-real="0">Red flag</button>
+            </div>
+            <div class="verdict" id="qVerdict" role="status" hidden></div>
+            <button class="btn btn-ghost" type="button" id="qNext" hidden>Next exhibit →</button>
+            <p class="fine">All exhibits are fictional examples.</p>
+          </div>
+          <aside class="rise" style="--i:2" aria-labelledby="tkTitle">
+            <h3 class="block-title" id="tkTitle">Detective toolkit</h3>
+            <ul class="toolkit">
+              <li><span class="tag">SEARCH</span><p>Copy one sentence from the policy and search it in quotes. Hundreds of hits under other brand names means a copied template.</p></li>
+              <li><span class="tag">REGISTRY</span><p>Look the company up: Georgia's Public Registry (napr.gov.ge), EU business registers, US state registries. A real business is listed.</p></li>
+              <li><span class="tag">WHOIS</span><p>Check the domain's age. A shop “trusted since 2009” on a domain registered last month is lying.</p></li>
+              <li><span class="tag">ARCHIVE</span><p>Open the policy in the Wayback Machine (web.archive.org). Real companies have a history of versions.</p></li>
+              <li><span class="tag">DEVTOOLS</span><p>Compare the policy with reality. Trackers in the Network tab that the policy never mentions are a broken promise.</p></li>
+            </ul>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12 · Thank you -->
+    <section class="slide" id="s12" data-title="Thank you" data-part="Wrap-up" data-group="end" aria-label="Slide 12: Thank you">
+      <div class="frame">
+        <div class="finale">
+          <div class="finale-copy">
+            <p class="eyebrow rise" style="--i:0">§ C · Wrap-up</p>
+            <h2 class="rise" style="--i:1">Thank you for your <span>attention.</span></h2>
+            <p class="q-line rise" style="--i:2">Questions? Let's talk.</p>
+            <ul class="recap rise" style="--i:3">
+              <li><b>Terms</b><span>Rules, written as a contract. Get a clear “I agree” and keep every version.</span></li>
+              <li><b>Privacy</b><span>Promises about data. Say what, why, who, how long, and which rights.</span></li>
+              <li><b>Front end</b><span>The proof. Honest consent UI, nothing loads before “yes”, links people can see.</span></li>
+            </ul>
+            <button class="kit-teaser rise" style="--i:4" type="button" data-go="12">
+              <span class="step-ic" data-icon="sparkle"></span>
+              <span><b>Bonus: the AI prompt kit</b><small>Fill in your brand, copy one prompt, get a personalised privacy policy draft.</small></span>
+              <i data-icon="arrow"></i>
+            </button>
+          </div>
+          <div class="overlap rise" style="--i:3">
+          <figure class="photo">
+            <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&amp;fit=crop&amp;w=1100&amp;h=825&amp;q=80" alt="" loading="lazy">
+            <figcaption class="credit">Photo · Unsplash</figcaption>
+          </figure>
+          <div class="sign-card">
+            <p class="mini-label">One last agreement</p>
+            <label class="check" for="finalAgree"><input type="checkbox" class="cb" id="finalAgree"><span>I have read and understood today's lesson on Terms &amp; Privacy.</span></label>
+            <p class="sign-line">Signature · the whole class</p>
+            <div class="final-rec" id="finalRec" role="status" hidden><span class="mini-label">Agreement recorded</span><span id="finalTime"></span><span>This time, you actually read it.</span></div>
+            <div class="btn-row">
+              <button class="btn" type="button" id="hwBtn" aria-expanded="false" aria-controls="hw">Show homework</button>
+              <button class="btn btn-ghost" type="button" data-go="0">Back to start</button>
+            </div>
+            <div class="hw" id="hw" hidden>
+              <ol>
+                <li>Pick a website or app you use every day.</li>
+                <li>Find its Terms and Privacy Policy. Count the clicks it took.</li>
+                <li>Score the policy with the 12-section checklist from slide 8.</li>
+                <li>Open DevTools → Network before touching the cookie banner. List what loads.</li>
+                <li>Bring one red flag and one green signal to the next lesson.</li>
+                <li>Bonus: draft a policy for your own project with the prompt kit on slide 13, then audit the draft.</li>
+              </ol>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13 · Prompt kit -->
+    <section class="slide" id="s13" data-title="AI prompt kit" data-part="Bonus · AI prompt kit" data-group="bonus" aria-label="Slide 13: AI prompt kit">
+      <div class="frame">
+        <div class="head-row">
+          <div class="head rise" style="--i:0">
+            <p class="eyebrow">§ D · Bonus · Prompt kit</p>
+            <h2 class="title">Generate your own policy with AI</h2>
+            <p class="lede">Fill the highlighted placeholders with your brand's details, copy the prompt, and paste it into any AI assistant. It already asks for every section from this lesson.</p>
+          </div>
+          <div class="head-actions rise" style="--i:1">
+            <div class="seg-ctl" role="tablist" aria-label="Document to generate" id="kitTabs">
+              <button type="button" role="tab" data-key="pp" aria-selected="true" aria-controls="kitPrompt" data-icon="shield">Privacy Policy</button>
+              <button type="button" role="tab" data-key="tc" aria-selected="false" aria-controls="kitPrompt" data-icon="scale">Terms</button>
+              <button type="button" role="tab" data-key="both" aria-selected="false" aria-controls="kitPrompt" data-icon="layers">Both</button>
+            </div>
+          </div>
+        </div>
+        <ol class="kit-steps rise" style="--i:2">
+          <li><span class="step-ic" data-n="1" data-icon="pen"></span><span><b>Fill the highlights</b>Brand, business and data</span></li>
+          <li><span class="step-ic" data-n="2" data-icon="copy"></span><span><b>Copy the prompt</b>One click, plain text</span></li>
+          <li><span class="step-ic" data-n="3" data-icon="bot"></span><span><b>Paste it into an AI</b>Any AI chat assistant</span></li>
+          <li><span class="step-ic" data-n="4" data-icon="shieldCheck"></span><span><b>Review before you publish</b>Slide 8 checklist, then a lawyer</span></li>
+        </ol>
+        <div class="kit rise" style="--i:3">
+          <section class="kit-panel" aria-labelledby="kitFieldsTitle">
+            <div class="kit-bar">
+              <div class="kit-progress"><h3 class="mini-label" id="kitFieldsTitle">Your details</h3><span><b id="kitFilled">0</b> of <span id="kitTotal">0</span> filled</span><span class="meter" aria-hidden="true"><i id="kitMeter"></i></span></div>
+              <div class="btn-row">
+                <button class="btn btn-ghost btn-sm" type="button" id="kitExample" data-icon="sparkle">Fill example</button>
+                <button class="btn btn-ghost btn-sm" type="button" id="kitClear" data-icon="reset">Clear</button>
+              </div>
+            </div>
+            <div class="kit-scroll" id="kitFields"></div>
+          </section>
+          <section class="kit-panel" aria-labelledby="kitPromptTitle">
+            <div class="kit-bar">
+              <p class="prompt-file" id="kitPromptTitle"><i data-icon="file"></i><span id="kitFile">privacy-policy-prompt.txt</span><small id="kitMeta"></small></p>
+              <div class="prompt-actions">
+                <button class="btn btn-ghost btn-sm icon-only" type="button" id="kitDownload" aria-label="Download prompt as a text file" title="Download .txt" data-icon="download"></button>
+                <button class="btn btn-sm copy-btn" type="button" id="kitCopy"><i data-icon="copy" class="ic-copy"></i><i data-icon="check" class="ic-ok"></i><span id="kitCopyLabel">Copy prompt</span></button>
+              </div>
+            </div>
+            <div class="prompt-body" id="kitPrompt" role="tabpanel" tabindex="0" aria-label="Prompt preview"></div>
+            <div class="prompt-foot">
+              <span><mark class="ph">[ PLACEHOLDER ]</mark> still to fill</span>
+              <span><mark class="ph filled">Your text</mark> filled by you</span>
+              <span class="tip">Click a highlight to edit it.</span>
+            </div>
+          </section>
+        </div>
+        <p class="fine kit-fine rise" style="--i:4"><i data-icon="info"></i>Empty placeholders stay in [BRACKETS] and the AI is told to ask for them. An AI draft is a starting point, not legal advice.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="controls">
+    <button class="nav-btn" id="prev" type="button" aria-label="Previous slide">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5"/></svg><span class="nav-label">Back</span></button>
+    <nav class="progress" id="progress" aria-label="Slides"></nav>
+    <span class="counter" id="counter">01 / 12</span>
+    <button class="nav-btn next" id="next" type="button" aria-label="Next slide"><span class="nav-label">Next</span>
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5"/></svg></button>
+  </footer>
+</div>
+
+<aside class="notes" id="notes" aria-label="Teacher notes" inert>
+  <div class="notes-head">
+    <div><p class="mini-label">Teacher notes</p><h2 id="notesTitle"></h2></div>
+    <button class="icon-btn" type="button" id="notesClose" aria-label="Close teacher notes">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+  </div>
+  <div id="notesBody" style="display:grid;gap:1.1rem"></div>
+</aside>
+
+<div class="overview" id="overview" role="dialog" aria-modal="true" aria-label="All slides" inert>
+  <div class="ov-head">
+    <h2 class="title">All slides</h2>
+    <button class="icon-btn" type="button" id="ovClose" aria-label="Close slide overview">
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l10 10M15 5L5 15"/></svg></button>
+  </div>
+  <div class="ov-grid" id="ovGrid"></div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="sr-only" id="live" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ================= content ================= */
+
+const NOTES = [
+  { tip: `Before explaining anything, ask a student to tick the box on the right and press Sign up. Then ask who read the terms first.`,
+    ask: `When did you last click “I agree”, and what did you agree to?`,
+    fact: `In a 2016 study, 98% of 543 students joined a fake social network without spotting a clause that promised their first-born child as payment (Obar &amp; Oeldorf-Hirsch).` },
+  { tip: `Use an analogy: terms are the house rules of a gym. Who can enter, what is forbidden, what happens if you break the equipment, and when you can be asked to leave.`,
+    ask: `Which agreement style do the apps on your phone use?`,
+    answer: `Most sign-up screens use clickwrap or sign-in wrap. Links that only sit in the footer are browsewrap.`,
+    fact: `On 1 April 2010 the UK retailer GameStation added a clause claiming customers' immortal souls. About 7,500 shoppers accepted it.` },
+  { tip: `Print a real Terms page from a popular app. Teams race to find each of the 12 clauses and mark them.`,
+    ask: `Which clause protects the business most? Which protects the user?`,
+    answer: `The liability limit and the dispute clause protect the business most. Refund rules and notice of changes protect the user.`,
+    fact: `Disclaimers are often in CAPITAL LETTERS because US law (UCC §2-316) requires warranty disclaimers to be conspicuous.` },
+  { tip: `Draw three overlapping circles on the board: EU, USA, Georgia. Place each rule; most land where the EU and Georgia overlap.`,
+    ask: `A shop in Tbilisi sells to customers in Germany. Whose rules apply?`,
+    answer: `Georgian law for the business, plus the consumer protections of the customer's EU country, because the shop targets EU customers.`,
+    fact: `The EU's online withdrawal-button rule applies from 19 June 2026, so many shops redesigned their order pages this year.` },
+  { tip: `Live-code this form with the class. Point out that the Privacy Policy is linked as information, not “agreed to”.`,
+    ask: `Why store the terms version and a timestamp instead of just agreed: true?`,
+    answer: `In a dispute you must prove which text the user accepted and when. “true” proves nothing.`,
+    fact: `A disabled grey button gives screen-reader users no reason. An inline error tells everyone what to do.` },
+  { tip: `Role-play: one student runs the shop, one is the unhappy customer, one is the judge. Give them a vague clause and let them argue.`,
+    ask: `When a term can mean two things, who wins?`,
+    answer: `Usually the customer. Unclear terms are read against the company that wrote them.` },
+  { tip: `Play “Is it personal data?” as a class vote before revealing each card.`,
+    ask: `Does a portfolio site with only a contact form need a privacy policy?`,
+    answer: `Yes. It collects names and email addresses.`,
+    fact: `Researchers estimated in 2008 that reading every privacy policy you meet in a year would take about 201 hours, roughly 76 working days (McDonald &amp; Cranor).` },
+  { tip: `Pairs audit a real website with this checklist, then compare scores across the class.`,
+    ask: `Which sections were missing most often on the sites you checked?`,
+    answer: `Small sites often skip retention periods and transfers abroad.` },
+  { tip: `Have students memorise three GDPR numbers: 72 hours, one month, 4%.`,
+    ask: `Why would a US startup with no EU office follow GDPR?`,
+    answer: `GDPR applies when you offer goods or services to people in the EU or monitor their behaviour, wherever your company is based.`,
+    fact: `In 2023 Ireland's regulator fined Meta €1.2 billion for transferring EU users' data to the US.` },
+  { tip: `Open DevTools → Network on a news site before touching its cookie banner. Count the third-party requests together.`,
+    ask: `If analytics loads before the user clicks “Accept”, is the site compliant in the EU?`,
+    answer: `No. Non-essential cookies and trackers need consent first.`,
+    fact: `Brave and DuckDuckGo send Global Privacy Control by default. The live check on this slide reads your own browser's setting.` },
+  { tip: `Show screenshots of real and fake shops; teams vote, then check their answers with the toolkit.`,
+    ask: `Which single check would you run first on an unknown shop?`,
+    answer: `Search one sentence of its policy in quotes, then look the company up in the business registry.` },
+  { tip: `Close with the bookend: students tick the final box, then you assign the homework audit.`,
+    ask: `What will you change in your own projects tomorrow?` },
+  { tip: `Students fill the kit for their own project or a made-up shop, paste the prompt into an AI assistant, then score the draft with the 12-section checklist from slide 8.`,
+    ask: `What did the AI get wrong, invent or leave out?`,
+    answer: `Common misses: invented partners, the wrong country's law, and no retention periods. That is why the prompt forbids inventing facts, and why a person still reviews the draft.`,
+    fact: `In 2023 a US court fined two lawyers $5,000 for filing a brief with court cases that ChatGPT had made up (<i>Mata v. Avianca</i>).` }
+];
+
+const WRAPS = {
+  click: { strength: 3, label: 'Strongest',
+    mock: `<span class="mk-title">Create your account</span><span class="mk-input">nino@example.ge</span><span class="mk-check"><span class="mk-box"></span><span>I agree to the <u>Terms of Service</u></span></span><span class="mk-btn">Create account</span>`,
+    text: `The user does something that can only mean “I agree”: ticks an unchecked box or presses an “I agree” button. Courts enforce this most reliably.` },
+  signin: { strength: 2, label: 'Depends on the design',
+    mock: `<span class="mk-title">Create your account</span><span class="mk-input">nino@example.ge</span><span class="mk-btn">Create account</span><span class="mk-fine">By creating an account, you agree to our <u>Terms of Service</u>.</span>`,
+    text: `A line under the button says “By creating an account, you agree…”. Courts enforce it when the notice is clear and close to the button (<i>Meyer v. Uber</i>, 2017) and reject it when it is small and grey (<i>Berman v. Freedom Financial</i>, 2022).` },
+  browse: { strength: 1, label: 'Weakest',
+    mock: `<span class="mk-title">Rioni Books</span><span class="mk-line" style="width:90%"></span><span class="mk-line" style="width:74%"></span><span class="mk-line" style="width:84%"></span><span class="mk-btn">Buy now</span><span class="mk-footer"><span>About</span><span>Terms</span><span>Privacy</span><span>Contact</span></span>`,
+    text: `The terms are only linked in the footer. The user never does anything to agree, so courts often refuse to enforce them (<i>Nguyen v. Barnes &amp; Noble</i>, 2014).` }
+};
+
+const CLAUSES = [
+  { t: 'Acceptance', core: 1, d: 'How the user agrees, and who the contract is with.', s: 'By creating an account, you agree to these Terms with Rioni Books LLC.' },
+  { t: 'Eligibility', core: 1, d: 'Minimum age and where the service is offered.', s: 'You must be 18 or older, or use the shop with a parent’s permission.' },
+  { t: 'Accounts', core: 0, d: 'The user keeps the password safe and the details accurate.', s: 'You are responsible for activity on your account. Tell us at once if it is compromised.' },
+  { t: 'Acceptable use', core: 1, d: 'What users must not do on the site.', s: 'Don’t spam, scrape, hack, or post illegal content.' },
+  { t: 'User content', core: 0, d: 'Who owns reviews and posts, and how moderation works.', s: 'You own your reviews and let us display them. If we remove one, we tell you why.' },
+  { t: 'Intellectual property', core: 1, d: 'Your logo, code, text and design belong to you.', s: 'The Rioni Books name, logo and site design are ours. Please don’t copy them.' },
+  { t: 'Payments & refunds', core: 0, d: 'Prices, taxes, delivery, subscriptions, refunds.', s: 'Prices include VAT. You can withdraw within 14 days of delivery.' },
+  { t: 'Termination', core: 0, d: 'When you may suspend accounts; how users can leave.', s: 'Delete your account any time in Settings. We may suspend accounts that break these Terms.' },
+  { t: 'Disclaimers', core: 1, d: 'What the service does not guarantee.', s: 'The site is provided “as is”. We don’t promise it will always be available.' },
+  { t: 'Limitation of liability', core: 1, d: 'A cap on what you owe if something fails.', s: 'Our liability is limited to what you paid us in the last 12 months, except where the law forbids limits.' },
+  { t: 'Law & disputes', core: 1, d: 'Which country’s law and courts apply.', s: 'Georgian law applies. EU customers keep the protections of their home country.' },
+  { t: 'Changes & contact', core: 1, d: 'How updates are announced, the date, who to contact.', s: 'We email you 30 days before major changes. Questions: legal@rionibooks.ge' }
+];
+
+const TC_LAWS = {
+  eu: [
+    { name: 'Unfair Contract Terms', ref: 'Directive 93/13/EEC', text: 'Terms must be fair and written in plain, intelligible language. Unclear terms are read in the consumer’s favour, and unfair ones don’t bind the consumer.', fe: 'Readable layout: headings, short paragraphs' },
+    { name: 'Consumer Rights', ref: 'Directive 2011/83/EU', text: 'Show the total price and key terms before the order. Online buyers get 14 days to withdraw. The order button must make clear that the user is paying.', fe: 'Button text like “Order with obligation to pay”' },
+    { name: 'Withdrawal button', ref: 'Directive 2023/2673 · from 19 June 2026', text: 'Shops that sell online must offer a clearly labelled withdrawal function, so customers can cancel within the 14 days as easily as they bought.', fe: 'A visible “Withdraw from contract” button' },
+    { name: 'Digital Services Act', ref: 'Regulation 2022/2065', text: 'Platforms must say in their terms what content they restrict, how moderation works, and how users can complain about a decision.', fe: 'Report and appeal flows' },
+    { name: 'E-Commerce Directive', ref: 'Directive 2000/31/EC', text: 'Show who runs the site: company name, address, email and registration number.', fe: 'An imprint or “About us” page' }
+  ],
+  us: [
+    { name: 'Contract law', ref: 'State law, no federal code', text: 'There is no single federal law for website terms. Courts ask two things: was the notice reasonably conspicuous, and did the user clearly agree?', fe: 'Clickwrap at sign-up and checkout' },
+    { name: 'Berman v. Freedom Financial', ref: '9th Circuit, 2022', kind: 'case', text: 'Small grey text and links that didn’t look like links: the court held that users never agreed to the terms.', fe: 'Underlined, high-contrast links' },
+    { name: 'FTC Act §5', ref: 'Federal Trade Commission', text: 'Deceptive or unfair practices are illegal, including hidden fees and interfaces that trick users (dark patterns).', fe: 'No tricks in the UI' },
+    { name: 'ROSCA', ref: 'Restore Online Shoppers’ Confidence Act, 2010', text: 'Subscriptions must disclose terms before billing, get express consent and offer a simple way to cancel. In 2025 Amazon agreed to pay $2.5 billion over Prime sign-up and cancellation.', fe: 'Clear renewal text, easy cancel' },
+    { name: 'DMCA §512', ref: 'Copyright safe harbor', text: 'Sites that host user uploads name a copyright agent and run a takedown process to stay protected from liability for those uploads.', fe: 'A takedown request form' }
+  ],
+  ge: [
+    { name: 'Civil Code of Georgia', ref: 'Standard terms of contract', text: 'Online terms are standard terms. They become part of the contract only if the user could read them before agreeing, and unexpected or unfair clauses can be declared invalid.', fe: 'Terms shown before the user agrees' },
+    { name: 'Law on Consumer Rights Protection', ref: 'Adopted 2022', text: 'EU-style rules: clear information before purchase, a 14-day withdrawal right for distance purchases, and a ban on unfair and aggressive commercial practices.', fe: 'Price and terms visible before checkout' },
+    { name: 'Competition and Consumer Agency', ref: 'Regulator', text: 'Investigates consumer complaints and unfair practices, and can order changes and impose fines.', fe: 'Keep consent and order records' },
+    { name: 'EU–Georgia Association Agreement', ref: 'Signed 2014', text: 'Georgia commits to bringing its consumer and data laws closer to EU rules. Building to the EU standard keeps a Georgian site ahead.', fe: 'One design for EU and Georgian users' },
+    { name: 'Language', ref: 'Best practice', kind: 'tip', text: 'Publish the terms in Georgian, and in English if you sell abroad. People can only agree to what they understand.', fe: 'Language switch on legal pages' }
+  ]
+};
+
+const SCENARIOS = [
+  { name: 'No terms at all', sub: 'Launched without them',
+    legal: 'There are no agreed rules, so general law fills every gap, usually in the user’s favour. You have no clause to point to when you ban an abusive user, remove content or refuse a refund. Shops in the EU and Georgia also miss information they must show.',
+    business: 'Payment providers and app stores expect published terms, a refund policy and contact details. Without them, approval gets harder and disputes get expensive.',
+    users: 'A shop with no rules. Many people leave before paying.',
+    fix: 'Publish terms before launch. Link them in the footer, at sign-up and at checkout, and get a clear “I agree”.' },
+  { name: 'Vague or copy-pasted', sub: 'A template with the gaps left in',
+    legal: 'Unclear terms are read against the company that wrote them; in the EU that rule is written into law. Clauses like “we are never liable for anything” are unfair and don’t bind consumers.',
+    business: 'Copied terms describe features, countries and companies that aren’t yours. Partners, investors and lawyers notice at once.',
+    users: '“[COMPANY NAME]”, the wrong country, a different brand in paragraph 7. Trust drops.',
+    fix: 'Write terms for the product you actually run. Replace every placeholder, match your country and currency, and read the whole text once, out loud.' },
+  { name: 'Hidden in the footer', sub: 'Browsewrap: nobody agrees',
+    legal: 'If users never had to click anything or see a clear notice, courts may decide they never agreed. Arbitration clauses, liability limits and refund rules can all fall away.',
+    business: 'You think you’re protected and find out in court that you weren’t.',
+    users: 'Nothing. That is the problem.',
+    caseText: '<i>Nguyen v. Barnes &amp; Noble</i> (US, 2014): terms linked only at the bottom of the page were not binding, so the arbitration clause failed.',
+    fix: 'Use clickwrap: an unchecked box or an “Agree and continue” button, with visible links right next to it.' },
+  { name: 'Changed or deleted silently', sub: 'No date, no notice, no archive',
+    legal: 'New terms usually don’t bind existing users without notice. A clause that lets you change anything at any time can make the agreement unenforceable. Delete old versions and you can’t prove what anyone accepted.',
+    business: 'Every dispute becomes your word against theirs. Regulators treat surprise changes to prices or data use as unfair practices.',
+    users: 'Terms that shift without a date or a summary. People feel tricked.',
+    caseText: '<i>In re Zappos.com</i> (US, 2012): because Zappos could change its terms at any time, the court called its arbitration clause illusory and refused to enforce it.',
+    fix: 'Date every version, keep the archive, email users before major changes, and ask for acceptance again when it matters.' }
+];
+
+const PD = [
+  { q: 'Email address', yes: 1, why: 'Identifies a person directly.' },
+  { q: 'IP address', yes: 1, why: 'Can be linked to a person (EU Court of Justice, Breyer, 2016).' },
+  { q: 'Cookie ID a8f3-77c1', yes: 1, why: 'An online identifier that singles out one browser.' },
+  { q: 'Hashed email', yes: 1, why: 'Pseudonymised but still linkable, so still personal data.' },
+  { q: '“1,240 visitors from Georgia last week”', yes: 0, why: 'Aggregated. Nobody can be singled out.' },
+  { q: 'Book price: 49 GEL', yes: 0, why: 'Describes a product, not a person.' },
+  { q: 'Voice message', yes: 1, why: 'A person’s voice identifies them.' },
+  { q: 'info@rionibooks.ge', yes: 0, why: 'A generic company inbox. A named employee’s address would be personal.' }
+];
+
+const PP_ITEMS = [
+  ['Who we are', 'Legal name, address, contact; DPO if you have one.'],
+  ['What we collect', 'Account, payment, device and usage data, by category.'],
+  ['How we collect it', 'Forms, cookies, and other companies.'],
+  ['Why, and on what basis', 'Each purpose with its legal basis.'],
+  ['Who we share it with', 'Named processors: hosting, payments, analytics.'],
+  ['Transfers abroad', 'Which countries, and what protects the data there.'],
+  ['How long we keep it', 'A retention period for each type of data.'],
+  ['Your rights', 'Access, correction, deletion, objection; how to ask and how to complain.'],
+  ['Cookies and tracking', 'Types, purposes, and how to change choices.'],
+  ['Children', 'Minimum age and parental consent.'],
+  ['Security', 'How data is protected and what happens after a breach.'],
+  ['Changes and date', 'Effective date, version history, how users hear about updates.']
+];
+const PP_EXAMPLE = [0, 1, 2, 3, 4, 8, 11];
+
+const PP_LAWS = {
+  eu: {
+    figs: [['72 h', 'to report a data breach to the regulator'], ['1 month', 'to answer a user’s request'], ['4%', 'of global annual turnover (or €20M): the maximum fine']],
+    rows: [
+      { name: 'GDPR Arts. 13–14', ref: 'Information at collection', text: 'When you collect data, say who you are, why, on what legal basis, who receives it, how long you keep it, and the user’s rights, including the right to complain.', fe: 'Short notice and policy link beside every form' },
+      { name: 'GDPR Art. 6', ref: 'Six legal bases', text: 'Each purpose needs a legal basis: consent, contract, legal obligation, vital interests, public task or legitimate interests.', fe: 'Separate consent per purpose' },
+      { name: 'ePrivacy Directive', ref: 'Cookies', text: 'Ask before storing non-essential cookies such as analytics or ads. Strictly necessary cookies need no consent.', fe: 'Banner that blocks scripts until “yes”' },
+      { name: 'CNIL v. Google', ref: 'France, 2019', kind: 'case', text: 'A €50 million fine because Google’s privacy information was spread across many pages and too vague for users to understand.', fe: 'One clear, layered policy page' }
+    ]
+  },
+  us: {
+    figs: [['13', 'age under which COPPA requires parental consent'], ['45 days', 'to answer a CCPA request'], ['≈20', 'states with a comprehensive privacy law']],
+    rows: [
+      { name: 'CalOPPA', ref: 'California, 2004', text: 'Commercial sites that collect personal information from Californians must post a privacy policy and explain how they respond to Do Not Track signals.', fe: 'A conspicuous “Privacy” link' },
+      { name: 'CCPA / CPRA', ref: 'California', text: 'Rights to know, delete, correct and opt out of sale or sharing. Covered businesses add a “Do Not Sell or Share My Personal Information” link and honor Global Privacy Control.', fe: 'Opt-out link and a GPC check' },
+      { name: 'Sector laws and the FTC', ref: 'COPPA · HIPAA · GLBA', text: 'Special rules for children under 13, health and finance. The FTC treats breaking your own privacy policy as deception.', fe: 'Age gate where needed' },
+      { name: 'Sephora settlement', ref: 'California, 2022', kind: 'case', text: 'Paid $1.2 million for not telling users it sold their data and for ignoring Global Privacy Control opt-out signals.', fe: 'Read navigator.globalPrivacyControl' }
+    ]
+  },
+  ge: {
+    figs: [['2024', 'new data protection law in force (1 March)'], ['72 h', 'to report a breach to the Service'], ['2014', 'EU Association Agreement drives alignment with GDPR']],
+    rows: [
+      { name: 'Law on Personal Data Protection', ref: 'Adopted June 2023 · in force 1 March 2024', text: 'Modeled on GDPR: every processing needs a legal ground and a clear purpose, and may use only the data it needs.', fe: 'Collect fewer fields' },
+      { name: 'Transparency', ref: 'Informing people', text: 'Tell people who processes their data, why, who receives it, how long it is kept and how to use their rights.', fe: 'Notice beside every form' },
+      { name: 'Rights and marketing', ref: 'Data subjects', text: 'People can ask to see, correct or delete their data. Direct marketing needs consent and an easy way to stop it.', fe: 'One-click unsubscribe' },
+      { name: 'Personal Data Protection Service', ref: 'Regulator', text: 'Handles complaints, inspections and breach reports. Some organisations, such as banks and telecoms, must appoint a Data Protection Officer.', fe: 'DPO contact in the policy' }
+    ]
+  }
+};
+
+const QUIZ = [
+  { label: 'Footer of an online shop', real: false,
+    html: `<div class="ex-footer"><span>© 2026 [COMPANY NAME]. All rights reserved.</span><span>Terms · Privacy · Contact</span></div>`,
+    why: 'A template placeholder nobody replaced. If no one read the footer, no one read the terms.' },
+  { label: 'Top of a privacy policy', real: true,
+    html: `<div class="ex-doc"><span class="t">Privacy Policy</span><span>Effective 1 September 2026 · Version 4 · <u>Previous versions</u></span><span>Controller: Rioni Books LLC, ID 405118273, 14 Kostava St, Tbilisi · privacy@rionibooks.ge</span></div>`,
+    why: 'Named legal entity, registration number, address, a domain email, a date and a version history. You can verify all of it in the Public Registry.' },
+  { label: 'Address bar on the Terms page', real: false,
+    html: `<p class="ex-url"><span>https://</span>paypa1-secure-account.com/terms</p>`,
+    why: 'A lookalike domain: the digit 1 replaces the letter l. Real companies host legal pages on their own domain.' },
+  { label: 'Privacy policy, the whole “Sharing” section', real: false,
+    html: `<p class="ex-quote">“We may share your information with trusted partners for various business purposes.”</p>`,
+    why: 'No partner names, no purposes, no legal basis. GDPR requires recipients and purposes to be stated.' },
+  { label: 'Terms of a Georgian shop that prices in GEL', real: false,
+    html: `<p class="ex-quote">“These Terms are governed by the laws of the State of Delaware, USA.”</p>`,
+    why: 'Copied from a US template. The terms don’t match where the business is or who it sells to.' },
+  { label: 'Cookie banner', real: true,
+    html: `<div class="banner" style="box-shadow:none"><p>We use analytics and ad cookies only if you allow it. Change your mind any time in <u>Privacy choices</u>.</p><div class="banner-actions"><span class="btn btn-sm">Reject all</span><span class="btn btn-ghost btn-sm">Customize</span><span class="btn btn-sm">Accept all</span></div></div>`,
+    why: 'Equal choices, nothing pre-ticked, and a way to change your mind later. Built by a team that knows the rules.' },
+  { label: 'Contact page', real: false,
+    html: `<p class="ex-quote">“Questions? Write to bestdeals.shop2026@gmail.com”</p><p class="fine">No company name. No address. Nothing else on the page.</p>`,
+    why: 'No legal entity and a free email account. If something goes wrong, there is nobody to hold responsible.' },
+  { label: 'Top of the Terms of Service', real: true,
+    html: `<div class="ex-doc"><span class="t">Terms of Service</span><span>Last updated 2 June 2026. What changed: we added an online withdrawal button for EU customers.</span><span><u>Read the previous version (10 November 2025)</u></span></div>`,
+    why: 'Dated changes, a plain summary and an archive. This company expects people to read its terms.' }
+];
+
+/* prompt kit (slide 13): each field fills every {{KEY}} in the template; a field shows only when the chosen document uses it */
+const KIT_GROUPS = [['brand', 'Your brand'], ['biz', 'Your business'], ['data', 'Your data'], ['doc', 'The document']];
+const KIT_FIELDS = [
+  { k: 'BRAND', g: 'brand', icon: 'tag', label: 'Brand name', ph: 'BRAND NAME', ex: 'Rioni Books' },
+  { k: 'URL', g: 'brand', icon: 'globe', label: 'Website or app', ph: 'WEBSITE URL', ex: 'rionibooks.ge' },
+  { k: 'ENTITY', g: 'brand', icon: 'building', label: 'Legal entity and registration ID', ph: 'LEGAL ENTITY & ID', ex: 'Rioni Books LLC, ID 405118273', wide: 1 },
+  { k: 'ADDRESS', g: 'brand', icon: 'pin', label: 'Registered address', ph: 'ADDRESS', ex: '14 Kostava St, Tbilisi, Georgia' },
+  { k: 'EMAIL', g: 'brand', icon: 'mail', label: 'Contact email', ph: 'CONTACT EMAIL', ex: 'privacy@rionibooks.ge', type: 'email' },
+  { k: 'ABOUT', g: 'biz', icon: 'store', label: 'What the site does', ph: 'WHAT THE SITE DOES', ex: 'An online bookshop that sells new and used books and lets customers post reviews', long: 1 },
+  { k: 'COUNTRY', g: 'biz', icon: 'flag', label: 'Business based in', ph: 'COUNTRY', ex: 'Georgia' },
+  { k: 'MARKETS', g: 'biz', icon: 'users', label: 'Users located in', ph: 'USER LOCATIONS', ex: 'Georgia and the European Union' },
+  { k: 'AGE', g: 'biz', icon: 'id', label: 'Minimum user age', ph: 'MINIMUM AGE', ex: '18, or younger with a parent’s permission', wide: 1 },
+  { k: 'PAY', g: 'biz', icon: 'card', label: 'Payments, delivery and refunds', ph: 'PAYMENTS & REFUNDS', ex: 'Card payments through a bank gateway, prices in GEL including VAT, delivery in Georgia, 14-day returns', long: 1 },
+  { k: 'DATA', g: 'data', icon: 'database', label: 'Personal data you collect', ph: 'DATA COLLECTED', ex: 'Name, email, phone, delivery address, order history, IP address, cookie IDs', long: 1 },
+  { k: 'TOOLS', g: 'data', icon: 'plug', label: 'Third-party services', ph: 'THIRD-PARTY SERVICES', ex: 'Hosting: Hetzner (Germany); payments: bank card gateway (Georgia); analytics: Plausible (EU); newsletter: Mailchimp (USA)', long: 1 },
+  { k: 'KEEP', g: 'data', icon: 'clock', label: 'How long you keep it', ph: 'RETENTION PERIODS', ex: 'Orders 6 years (tax law), accounts until the user deletes them, server logs 30 days', long: 1 },
+  { k: 'DATE', g: 'doc', icon: 'calendar', label: 'Effective date', ph: 'EFFECTIVE DATE', ex: '1 November 2026' },
+  { k: 'LANG', g: 'doc', icon: 'languages', label: 'Language(s)', ph: 'LANGUAGE', ex: 'English and Georgian' }
+];
+
+// Section titles match slide 8 (privacy) and slide 3 (terms), so the AI is asked for exactly what the lesson taught.
+function kitTemplate(mode) {
+  const pp = mode !== 'tc', tc = mode !== 'pp';
+  const L = [];
+  const add = (...lines) => L.push(...lines);
+  add(`You are an experienced ${pp && tc ? 'privacy and consumer-law' : pp ? 'privacy' : 'consumer-law'} lawyer who writes website legal documents in plain language.`);
+  add(pp && tc
+    ? 'Draft two separate documents for {{BRAND}} ({{URL}}): a Privacy Policy and Terms and Conditions. Link each one to the other.'
+    : `Draft ${pp ? 'a Privacy Policy' : 'Terms and Conditions'} for {{BRAND}} ({{URL}}).`);
+  add('', 'ABOUT MY BUSINESS',
+    '- Brand name: {{BRAND}}',
+    '- Website or app: {{URL}}',
+    '- Legal entity and registration number: {{ENTITY}}',
+    '- Registered address: {{ADDRESS}}',
+    '- Contact email for legal and privacy questions: {{EMAIL}}',
+    '- What the website does: {{ABOUT}}',
+    '- The business is based in: {{COUNTRY}}',
+    '- Our users are located in: {{MARKETS}}',
+    '- Minimum user age: {{AGE}}');
+  if (tc) add('- Payments, delivery and refunds: {{PAY}}');
+  if (pp) add('', 'ABOUT THE DATA',
+    '- Personal data we collect: {{DATA}}',
+    '- Third-party services that receive data (hosting, payments, analytics, email): {{TOOLS}}',
+    '- How long we keep each type of data: {{KEEP}}');
+  add('', 'LAWS TO FOLLOW',
+    'Follow the law of {{COUNTRY}}, plus the rules of the places where our users are ({{MARKETS}}). Where they apply, meet:');
+  if (pp) add(
+    '- EU users: GDPR Articles 6, 13 and 14, and the ePrivacy rules on cookies',
+    '- Georgian users: the Law of Georgia on Personal Data Protection (in force since 1 March 2024)',
+    '- California users: CCPA/CPRA and CalOPPA, including Global Privacy Control signals');
+  if (tc) add(
+    '- EU consumers: the Unfair Contract Terms Directive (93/13/EEC) and the Consumer Rights Directive (2011/83/EU), including the 14-day withdrawal right',
+    '- Georgian consumers: the Civil Code rules on standard terms and the Law on Consumer Rights Protection',
+    '- US users: a clear clickwrap agreement, and the FTC rules against hidden fees and dark patterns');
+  add('Skip any law that does not apply to us, and tell me why you skipped it.');
+  if (pp) add('', 'PRIVACY POLICY: COVER ALL 12 SECTIONS',
+    '1. Who we are: our legal entity, address and contact email from above, and a Data Protection Officer if the law requires one',
+    '2. What we collect: each category of personal data listed above',
+    '3. How we collect it: forms, cookies and similar technologies, and data from other companies',
+    '4. Why, and on what basis: each purpose with its legal basis (consent, contract, legal obligation or legitimate interests)',
+    '5. Who we share it with: name every service listed above and what it does for us',
+    '6. Transfers abroad: which countries the data goes to, and the safeguards that protect it there',
+    '7. How long we keep it: a retention period for each type of data',
+    '8. Your rights: access, correction, deletion, objection and portability, how to use them, and how to complain to the regulator',
+    '9. Cookies and tracking: types, purposes, and how to change choices at any time',
+    '10. Children: minimum age {{AGE}}, and how parental consent works',
+    '11. Security: how the data is protected, and what happens after a breach',
+    '12. Changes and date: effective date {{DATE}}, a version number, and how users hear about updates');
+  if (tc) add('', 'TERMS AND CONDITIONS: COVER ALL 12 CLAUSES',
+    '1. Acceptance: how users agree (an unticked checkbox or an "I agree" button), and that the contract is with {{ENTITY}}',
+    '2. Eligibility: minimum age {{AGE}}, and the countries where the service is offered',
+    '3. Accounts: keeping passwords safe and account details accurate',
+    '4. Acceptable use: what users must not do on the site',
+    '5. User content: who owns reviews and posts, our licence to show them, moderation and appeals',
+    '6. Intellectual property: our name, logo, content and design',
+    '7. Payments and refunds: {{PAY}}',
+    '8. Termination: how users can leave, and when we may suspend an account',
+    '9. Disclaimers: what the service does not guarantee',
+    '10. Limitation of liability: a fair cap that never excludes what the law does not allow us to exclude',
+    '11. Law and disputes: {{COUNTRY}} law and courts, while consumers keep the protections of their home country',
+    '12. Changes and contact: notice before major changes, and {{EMAIL}} for questions');
+  add('', 'WRITING RULES',
+    '- Use only the facts above. Do not invent data uses, partners, features or promises.',
+    '- Name names: no vague phrases such as "trusted partners" or "various business purposes".',
+    '- Plain words: short sentences, clear headings, and a one-line explanation for any legal term.',
+    '- Start with a short summary of the 5 most important points.',
+    '- Put "Last updated: {{DATE}}" and "Version 1" at the top.',
+    '- Write in {{LANG}}.',
+    '- If any detail above is still in [SQUARE BRACKETS], ask me for it before you start writing.');
+  add('', 'WHEN YOU ARE DONE',
+    '- Give me a checklist of what my website must do to match the text: cookie banner, unticked consent boxes, links in the footer and next to sign-up and checkout, and an archive of old versions.',
+    '- List anything you were unsure about or had to assume.',
+    '- Remind me to have a qualified lawyer review the draft before I publish it.',
+    '', `Return ${pp && tc ? 'each document' : 'the document'} in Markdown with numbered headings.`);
+  return L.join('\n');
+}
+
+/* ================= helpers ================= */
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+const pad = n => String(n).padStart(2, '0');
+function swap(el) { el.classList.remove('swap'); void el.offsetWidth; el.classList.add('swap'); }
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* icons: 24px line icons. <i data-icon> is replaced by the svg; any other element with data-icon gets the svg prepended */
+const SHIELD = '<path d="M12 3 4.5 6v5.5c0 4.6 3.1 8.2 7.5 9.5 4.4-1.3 7.5-4.9 7.5-9.5V6z"/>';
+const ICONS = {
+  tag: '<path d="M3 4v7.2c0 .5.2 1 .6 1.4l7.8 7.8a2 2 0 0 0 2.8 0l6.2-6.2a2 2 0 0 0 0-2.8L12.6 3.6A2 2 0 0 0 11.2 3H4a1 1 0 0 0-1 1z"/><circle cx="7.5" cy="7.5" r="1.3"/>',
+  globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/>',
+  building: '<rect x="5" y="3" width="14" height="18" rx="1.5"/><path d="M9 7h1.5M13.5 7H15M9 11h1.5M13.5 11H15M9 15h1.5M13.5 15H15M10 21v-3h4v3"/>',
+  pin: '<path d="M12 21s-6.5-5.8-6.5-11a6.5 6.5 0 0 1 13 0c0 5.2-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/>',
+  mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
+  store: '<path d="M4 10v10h16V10M3 4h18l-1 5a2.7 2.7 0 0 1-5.3 0 2.7 2.7 0 0 1-5.4 0A2.7 2.7 0 0 1 4 9z"/><path d="M10 20v-5h4v5"/>',
+  flag: '<path d="M5 21V4"/><path d="M5 4h12l-2.5 4.5L17 13H5"/>',
+  users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.2a6.5 6.5 0 0 1 3.5 5.8"/>',
+  id: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16.5a3.4 3.4 0 0 1 6.4 0M14.5 10h4M14.5 13.5h3"/>',
+  card: '<rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 10h19M6.5 15h4"/>',
+  database: '<ellipse cx="12" cy="5.5" rx="7.5" ry="2.8"/><path d="M4.5 5.5v13c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8v-13M4.5 12c0 1.5 3.4 2.8 7.5 2.8s7.5-1.3 7.5-2.8"/>',
+  plug: '<path d="M9 3v4M15 3v4M6 7h12v3.5a6 6 0 0 1-12 0zM12 16.5V21"/>',
+  clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
+  calendar: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+  languages: '<path d="M4 5.5h9M8.5 3.5v2M6.5 5.5c.4 3.6 2.6 6.4 5.5 7.6M10.5 5.5c-.6 3.4-2.8 6.3-6 7.8"/><path d="m13 21 4-9 4 9M14.4 18h5.2"/>',
+  shield: SHIELD,
+  shieldCheck: SHIELD + '<path d="m9 12 2.2 2.2L15.5 10"/>',
+  scale: '<path d="M12 3v18M7 21h10M4 7h16"/><path d="M6.5 7 3.5 13.5a3 3 0 0 0 6 0zM17.5 7l-3 6.5a3 3 0 0 0 6 0z"/>',
+  layers: '<path d="m12 3 9 5-9 5-9-5z"/><path d="m3 13 9 5 9-5"/>',
+  pen: '<path d="M14.5 4.5l5 5L9 20H4v-5z"/><path d="M12.5 6.5l5 5"/>',
+  copy: '<rect x="8.5" y="8.5" width="12" height="12" rx="2"/><path d="M15.5 8.5v-3a2 2 0 0 0-2-2h-8a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/>',
+  check: '<path d="M5 12.5 9.5 17 19 7.5"/>',
+  bot: '<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4.5V8M9 13.5v1M15 13.5v1M2 13v3M22 13v3"/><circle cx="12" cy="3.5" r="1"/>',
+  sparkle: '<path d="M11 3.5 12.8 9l5.7 1.8-5.7 1.9-1.8 5.8-1.8-5.8-5.7-1.9L9.2 9z"/><path d="m18.5 15.5.7 2 2 .8-2 .7-.7 2-.8-2-2-.7 2-.8z"/>',
+  reset: '<path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1L3.5 8.5"/><path d="M3.5 3.5v5h5"/>',
+  download: '<path d="M12 3.5v12M7 10.5l5 5 5-5M4.5 20.5h15"/>',
+  file: '<path d="M14 3H6.5A1.5 1.5 0 0 0 5 4.5v15A1.5 1.5 0 0 0 6.5 21h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><path d="M14 3v5h5M8.5 13h7M8.5 16.5h7M8.5 9.5h2"/>',
+  info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v5.5M12 7.6v.1"/>',
+  arrow: '<path d="M4 12h16M14 6l6 6-6 6"/>'
+};
+const icon = (name, cls) => `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[name] || ''}</svg>`;
+$$('[data-icon]').forEach(el => {
+  if (el.tagName === 'I') el.outerHTML = icon(el.dataset.icon, el.className);
+  else el.insertAdjacentHTML('afterbegin', icon(el.dataset.icon));
+});
+
+const toastEl = $('#toast'); let toastT;
+function toast(msg) {
+  toastEl.textContent = msg; toastEl.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => toastEl.classList.remove('show'), 2600);
+}
+
+function setupTabs(list, onSelect) {
+  const tabs = $$('[role="tab"]', list);
+  function select(t, focus) {
+    tabs.forEach(x => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.tabIndex = on ? 0 : -1; });
+    if (focus) t.focus();
+    onSelect(t.dataset.key, t);
+  }
+  tabs.forEach(t => t.addEventListener('click', () => select(t)));
+  list.addEventListener('keydown', e => {
+    const i = tabs.indexOf(document.activeElement);
+    if (i < 0) return;
+    let j = null;
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') j = (i + 1) % tabs.length;
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') j = (i - 1 + tabs.length) % tabs.length;
+    else if (e.key === 'Home') j = 0;
+    else if (e.key === 'End') j = tabs.length - 1;
+    if (j !== null) { e.preventDefault(); select(tabs[j], true); }
+  });
+  select(tabs.find(t => t.getAttribute('aria-selected') === 'true') || tabs[0]);
+}
+
+function renderLaws(el, rows) {
+  el.innerHTML = rows.map(r => `
+    <div class="law">
+      <p class="law-name">${r.kind === 'case' ? '<span class="tag-case">Real case</span><br>' : r.kind === 'tip' ? '<span class="tag-case tag-tip">Best practice</span><br>' : ''}${r.name}<small>${r.ref}</small></p>
+      <p class="law-text">${r.text}</p>
+      <p class="fe">${r.fe}</p>
+    </div>`).join('');
+}
+
+/* ================= deck ================= */
+const slides = $$('.slide');
+const total = slides.length;
+let cur = -1;
+const counter = $('#counter'), partLabel = $('#partLabel'), live = $('#live');
+const prevBtn = $('#prev'), nextBtn = $('#next'), progress = $('#progress');
+
+slides.forEach((s, i) => {
+  let grp = progress.querySelector(`[data-g="${s.dataset.group}"]`);
+  if (!grp) { grp = document.createElement('div'); grp.className = 'grp'; grp.dataset.g = s.dataset.group; progress.appendChild(grp); }
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'pseg';
+  b.setAttribute('aria-label', `Go to slide ${i + 1}: ${s.dataset.title}`);
+  b.addEventListener('click', () => go(i));
+  grp.appendChild(b);
+});
+$$('.grp', progress).forEach(g => { g.style.flex = String(g.children.length); });
+const segs = $$('.pseg', progress);
+
+const ov = $('#overview'), ovBtn = $('#overviewBtn'), ovGrid = $('#ovGrid');
+slides.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.className = 'ov-card';
+  b.innerHTML = `<span class="ov-num">${pad(i + 1)}</span><span><span class="ov-part">${s.dataset.part}</span><br><span class="ov-title">${s.dataset.title}</span></span>`;
+  b.addEventListener('click', () => { go(i); closeOverview(); });
+  ovGrid.appendChild(b);
+});
+const ovCards = $$('.ov-card', ovGrid);
+
+function go(n, opts = {}) {
+  n = Math.max(0, Math.min(total - 1, n));
+  if (n === cur) return;
+  cur = n;
+  slides.forEach((s, i) => {
+    const on = i === n;
+    s.classList.toggle('is-active', on);
+    s.classList.toggle('is-past', i < n);
+    s.toggleAttribute('inert', !on);
+    s.setAttribute('aria-hidden', on ? 'false' : 'true');
+  });
+  segs.forEach((b, i) => {
+    b.classList.toggle('done', i < n); b.classList.toggle('now', i === n);
+    if (i === n) b.setAttribute('aria-current', 'step'); else b.removeAttribute('aria-current');
+  });
+  ovCards.forEach((c, i) => c.setAttribute('aria-current', i === n ? 'true' : 'false'));
+  counter.textContent = `${pad(n + 1)} / ${pad(total)}`;
+  partLabel.textContent = slides[n].dataset.part;
+  prevBtn.disabled = n === 0;
+  nextBtn.disabled = n === total - 1;
+  slides[n].scrollTop = 0;
+  renderNotes();
+  live.textContent = `Slide ${n + 1} of ${total}: ${slides[n].dataset.title}`;
+  if (!opts.fromHash) { try { history.replaceState(null, '', '#s' + (n + 1)); } catch (e) { /* sandboxed frame */ } }
+}
+const next = () => go(cur + 1);
+const prev = () => go(cur - 1);
+prevBtn.addEventListener('click', prev);
+nextBtn.addEventListener('click', next);
+
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-go]');
+  if (!t) return;
+  e.preventDefault();
+  go(Number(t.dataset.go));
+  if (ov.classList.contains('open')) closeOverview();
+});
+
+/* notes drawer */
+const notesEl = $('#notes'), notesBtn = $('#notesBtn'), notesBody = $('#notesBody'), notesTitle = $('#notesTitle');
+function renderNotes() {
+  const n = NOTES[cur] || {};
+  notesTitle.textContent = `Slide ${cur + 1} · ${slides[cur].dataset.title}`;
+  notesBody.innerHTML = `
+    <div class="note-block"><p class="mini-label">Teaching tip</p><p>${n.tip || ''}</p></div>
+    <div class="note-block"><p class="mini-label">Ask the class</p><p class="ask">${n.ask || ''}</p>
+      ${n.answer ? `<button class="btn btn-ghost btn-sm" type="button" data-answer aria-expanded="false">Show answer</button><p class="answer" hidden>${n.answer}</p>` : ''}</div>
+    ${n.fact ? `<div class="note-block fact"><p class="mini-label">Did you know?</p><p>${n.fact}</p></div>` : ''}`;
+}
+notesBody.addEventListener('click', e => {
+  const b = e.target.closest('[data-answer]');
+  if (!b) return;
+  const a = b.nextElementSibling, open = a.hidden;
+  a.hidden = !open; b.textContent = open ? 'Hide answer' : 'Show answer';
+  b.setAttribute('aria-expanded', String(open));
+});
+function setNotes(open) {
+  notesEl.classList.toggle('open', open);
+  notesEl.toggleAttribute('inert', !open);
+  notesBtn.setAttribute('aria-pressed', String(open));
+}
+notesBtn.addEventListener('click', () => setNotes(!notesEl.classList.contains('open')));
+$('#notesClose').addEventListener('click', () => { setNotes(false); notesBtn.focus(); });
+
+/* overview */
+function openOverview() {
+  ov.classList.add('open'); ov.removeAttribute('inert');
+  ovBtn.setAttribute('aria-pressed', 'true');
+  (ovCards[cur] || ovCards[0]).focus();
+}
+function closeOverview() {
+  ov.classList.remove('open'); ov.setAttribute('inert', '');
+  ovBtn.setAttribute('aria-pressed', 'false');
+}
+ovBtn.addEventListener('click', () => ov.classList.contains('open') ? closeOverview() : openOverview());
+$('#ovClose').addEventListener('click', () => { closeOverview(); ovBtn.focus(); });
+
+/* fullscreen */
+function toggleFullscreen() {
+  try {
+    if (!document.fullscreenElement) {
+      const p = document.documentElement.requestFullscreen && document.documentElement.requestFullscreen();
+      if (!p) { toast('Fullscreen is not available here. Try F11.'); return; }
+      p.catch(() => toast('Fullscreen is not available here. Try F11.'));
+    } else { document.exitFullscreen(); }
+  } catch (err) { toast('Fullscreen is not available here. Try F11.'); }
+}
+$('#fsBtn').addEventListener('click', toggleFullscreen);
+
+/* keyboard */
+document.addEventListener('keydown', e => {
+  if (e.defaultPrevented || e.metaKey || e.ctrlKey || e.altKey) return;
+  const t = e.target;
+  if (e.key === 'Escape') {
+    if (ov.classList.contains('open')) { closeOverview(); ovBtn.focus(); }
+    else if (notesEl.classList.contains('open')) { setNotes(false); notesBtn.focus(); }
+    return;
+  }
+  if (t.closest && t.closest('input:not([type="checkbox"]):not([type="radio"]), textarea, select, [contenteditable="true"]')) return;
+  const key = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+  if (t.closest && t.closest('.prompt-body') && [' ', 'PageDown', 'PageUp', 'Home', 'End'].includes(key)) return; // let the prompt preview scroll
+  if (key === 'o') { e.preventDefault(); ov.classList.contains('open') ? closeOverview() : openOverview(); return; }
+  if (ov.classList.contains('open')) return;
+  const onControl = t.closest && t.closest('button, a, input, label, [role="tab"]');
+  switch (key) {
+    case 'ArrowRight': case 'PageDown': e.preventDefault(); next(); break;
+    case 'ArrowLeft': case 'PageUp': e.preventDefault(); prev(); break;
+    case ' ': if (!onControl) { e.preventDefault(); e.shiftKey ? prev() : next(); } break;
+    case 'Home': e.preventDefault(); go(0); break;
+    case 'End': e.preventDefault(); go(total - 1); break;
+    case 'n': e.preventDefault(); setNotes(!notesEl.classList.contains('open')); break;
+    case 'f': e.preventDefault(); toggleFullscreen(); break;
+  }
+});
+
+/* swipe */
+const stage = $('#stage');
+// Anchor jumps and focus() can scroll this clipped box sideways mid-transition; keep it pinned.
+stage.addEventListener('scroll', () => { if (stage.scrollLeft || stage.scrollTop) { stage.scrollLeft = 0; stage.scrollTop = 0; } });
+let sx = 0, sy = 0, st = 0, swipeOk = false;
+stage.addEventListener('touchstart', e => {
+  const p = e.touches[0]; sx = p.clientX; sy = p.clientY; st = Date.now();
+  swipeOk = !e.target.closest('.code, .table-wrap, input, textarea, .seg-ctl, .prompt-body, .kit-scroll');
+}, { passive: true });
+stage.addEventListener('touchend', e => {
+  if (!swipeOk) return;
+  const p = e.changedTouches[0], dx = p.clientX - sx, dy = p.clientY - sy;
+  if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6 && Date.now() - st < 700) dx < 0 ? next() : prev();
+}, { passive: true });
+
+window.addEventListener('hashchange', () => {
+  const m = location.hash.match(/^#s(\d{1,2})$/);
+  if (m) go(Number(m[1]) - 1, { fromHash: true });
+});
+
+/* ================= slide interactions ================= */
+
+/* 1 · hook */
+const hookAgree = $('#hookAgree'), hookErr = $('#hookErr'), hookMsg = $('#hookMsg');
+hookAgree.addEventListener('change', () => { hookErr.hidden = true; hookMsg.hidden = !hookAgree.checked; });
+$('#hookForm').addEventListener('submit', e => {
+  e.preventDefault();
+  if (!hookAgree.checked) { hookErr.hidden = false; hookAgree.focus(); }
+  else hookMsg.hidden = false;
+});
+
+/* 2 · agreement styles */
+const wrapMock = $('#wrapMock'), wrapMeter = $('#wrapMeter'), wrapLabel = $('#wrapLabel'), wrapText = $('#wrapText');
+setupTabs($('#wrapTabs'), key => {
+  const w = WRAPS[key];
+  wrapMock.innerHTML = w.mock;
+  $$('i', wrapMeter).forEach((i, k) => i.classList.toggle('on', k < w.strength));
+  wrapMeter.dataset.level = w.strength;
+  wrapLabel.textContent = `Strength: ${w.label}`;
+  wrapText.innerHTML = w.text;
+  swap($('#wrapPanel'));
+});
+
+/* 3 · clauses */
+const clauseGrid = $('#clauses');
+clauseGrid.innerHTML = CLAUSES.map((c, i) => `
+  <button type="button" class="clause" aria-expanded="false"${c.core ? ' data-core' : ''}>
+    <span class="layer front"><span class="num"><span>§ ${pad(i + 1)}</span><span class="tag">${c.core ? 'Core' : 'If needed'}</span></span><span class="c-title">${c.t}</span><span class="c-text">${c.d}</span></span>
+    <span class="layer back"><span class="num"><span>§ ${pad(i + 1)} · In plain words</span></span><span class="c-title">${c.t}</span><span class="c-text">“${c.s}”</span></span>
+  </button>`).join('');
+const clauseBtns = $$('.clause', clauseGrid);
+const openAll = $('#openAll');
+function syncOpenAll() {
+  const allOpen = clauseBtns.every(b => b.getAttribute('aria-expanded') === 'true');
+  openAll.textContent = allOpen ? 'Close all' : 'Open all';
+}
+clauseBtns.forEach(b => b.addEventListener('click', () => {
+  b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'));
+  syncOpenAll();
+}));
+openAll.addEventListener('click', () => {
+  const open = openAll.textContent === 'Open all';
+  clauseBtns.forEach(b => b.setAttribute('aria-expanded', String(open)));
+  syncOpenAll();
+});
+const coreBtn = $('#coreBtn');
+coreBtn.addEventListener('click', () => {
+  const on = coreBtn.getAttribute('aria-pressed') !== 'true';
+  coreBtn.setAttribute('aria-pressed', String(on));
+  clauseGrid.classList.toggle('core-only', on);
+});
+
+/* 4 · terms standards */
+const tcLaws = $('#tcLaws');
+setupTabs($('#tcTabs'), key => { renderLaws(tcLaws, TC_LAWS[key]); swap(tcLaws); });
+
+/* 5 · signup form */
+const tcForm = $('#tcForm'), tcAgree = $('#tcAgree'), tcErr = $('#tcErr'), tcEmail = $('#tcEmail');
+const tcRecord = $('#tcRecord'), tcRecLabel = $('#tcRecLabel'), tcRecordWrap = $('#tcRecordWrap');
+const exampleRecord = tcRecord.textContent;
+tcAgree.addEventListener('change', () => { if (tcAgree.checked) tcErr.hidden = true; });
+tcForm.addEventListener('submit', e => {
+  e.preventDefault();
+  if (!tcAgree.checked) { tcErr.hidden = false; tcAgree.focus(); return; }
+  tcErr.hidden = true;
+  const rec = {
+    email: tcEmail.value.trim() || 'nino@example.ge',
+    termsVersion: '2026-09-01',
+    acceptedAt: new Date().toISOString(),
+    method: 'checkbox'
+  };
+  tcRecord.textContent = JSON.stringify(rec, null, 2);
+  tcRecLabel.textContent = 'Consent record sent just now';
+  tcRecordWrap.classList.add('fresh');
+  swap(tcRecord);
+});
+$('#tcReset').addEventListener('click', () => {
+  tcForm.reset(); tcEmail.value = 'nino@example.ge'; tcErr.hidden = true;
+  tcRecord.textContent = exampleRecord;
+  tcRecLabel.textContent = 'Consent record the server stores (example)';
+  tcRecordWrap.classList.remove('fresh');
+});
+setupTabs($('#s5Tabs'), key => {
+  $('#s5rules').hidden = key !== 'rules';
+  $('#s5code').hidden = key !== 'code';
+});
+
+/* 6 · scenarios */
+const scenList = $('#scenTabs'), scenPanel = $('#scenPanel');
+scenList.innerHTML = SCENARIOS.map((s, i) => `<button type="button" role="tab" class="scen-btn" data-key="${i}" aria-selected="${i === 0}" aria-controls="scenPanel"><b>${s.name}</b><span>${s.sub}</span></button>`).join('');
+setupTabs(scenList, key => {
+  const s = SCENARIOS[Number(key)];
+  scenPanel.innerHTML = `
+    <div><p class="eyebrow">Scenario</p><h3>${s.name}</h3></div>
+    <div class="impact">
+      <div><p class="lbl">Legally</p><p>${s.legal}</p></div>
+      <div><p class="lbl">For the business</p><p>${s.business}</p></div>
+      <div><p class="lbl">What users see</p><p>${s.users}</p></div>
+    </div>
+    ${s.caseText ? `<p class="case"><b>Real case</b><span>${s.caseText}</span></p>` : ''}
+    <p class="fix"><b>Fix</b><span>${s.fix}</span></p>`;
+  swap(scenPanel);
+});
+
+/* 7 · personal data game */
+const pdGrid = $('#pdGrid');
+pdGrid.innerHTML = PD.map(p => `
+  <button type="button" class="pd ${p.yes ? 'yes' : 'no'}" aria-pressed="false">
+    <span class="pd-front"><span class="q">${p.q}</span><span class="hint2">Personal data?</span></span>
+    <span class="pd-back"><span class="q">${p.q}</span><span class="v">${p.yes ? 'Yes · personal data' : 'No · not personal'}</span><span class="why">${p.why}</span></span>
+  </button>`).join('');
+const pdBtns = $$('.pd', pdGrid);
+pdBtns.forEach(b => b.addEventListener('click', () => b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'))));
+$('#pdAll').addEventListener('click', () => pdBtns.forEach(b => b.setAttribute('aria-pressed', 'true')));
+$('#pdReset').addEventListener('click', () => pdBtns.forEach(b => b.setAttribute('aria-pressed', 'false')));
+
+/* 8 · policy audit */
+const ppItems = $('#ppItems'), ppScore = $('#ppScore'), ppMeter = $('#ppMeter');
+const ppStatus = $('#ppStatus'), ppMissing = $('#ppMissing'), ppSource = $('#ppSource');
+ppItems.innerHTML = PP_ITEMS.map((it, i) => `
+  <label class="item" for="pp${i}"><input type="checkbox" class="cb" id="pp${i}" data-i="${i}"><span class="n">${pad(i + 1)}</span><span><b>${it[0]}</b><small>${it[1]}</small></span></label>`).join('');
+const ppBoxes = $$('input', ppItems);
+function updatePP() {
+  const n = ppBoxes.filter(b => b.checked).length;
+  ppScore.textContent = n;
+  ppMeter.style.width = (n / PP_ITEMS.length * 100) + '%';
+  ppStatus.textContent =
+    n === 12 ? 'Complete. Users and regulators get an answer to every question.' :
+    n >= 9 ? 'Almost there. Fill the gaps before you launch.' :
+    n >= 5 ? 'Incomplete. Users can’t tell what happens to their data.' :
+    'Not a privacy policy yet. It would fail a regulator’s first look.';
+  const missing = ppBoxes.filter(b => !b.checked).map(b => PP_ITEMS[Number(b.dataset.i)][0]);
+  ppMissing.innerHTML = missing.length ? missing.map(m => `<span>${m}</span>`).join('') : '<em>Nothing missing</em>';
+}
+function setPP(list, label) {
+  ppBoxes.forEach((b, i) => { b.checked = list.includes(i); });
+  ppSource.textContent = label;
+  updatePP();
+}
+ppItems.addEventListener('change', () => { ppSource.textContent = 'Your audit'; updatePP(); });
+$('#ppExample').addEventListener('click', () => setPP(PP_EXAMPLE, 'Example audit: a small online shop'));
+$('#ppAll').addEventListener('click', () => setPP(PP_ITEMS.map((_, i) => i), 'Your audit'));
+$('#ppClear').addEventListener('click', () => setPP([], 'Your audit'));
+setPP(PP_EXAMPLE, 'Example audit: a small online shop');
+
+/* 9 · privacy standards */
+const ppFigs = $('#ppFigs'), ppLaws = $('#ppLaws');
+setupTabs($('#ppTabs'), key => {
+  const d = PP_LAWS[key];
+  ppFigs.innerHTML = d.figs.map(f => `<div class="fig"><b>${f[0]}</b><span>${f[1]}</span></div>`).join('');
+  renderLaws(ppLaws, d.rows);
+  swap($('#ppPanel'));
+});
+
+/* 10 · consent lab */
+const banner = $('#banner'), reopen = $('#reopen'), netlog = $('#netlog'), labNote = $('#labNote');
+const gpcOn = navigator.globalPrivacyControl === true;
+const lab = { mode: 'fair', consent: null, customizing: false, dpManage: false };
+
+function bannerHTML() {
+  if (lab.mode === 'fair') {
+    if (lab.customizing) {
+      const c = lab.consent || { analytics: false, ads: false };
+      return `<p><b>Choose what we may use.</b></p>
+        <div class="toggles">
+          <label class="toggle"><span>Necessary <small>· always on</small></span><input type="checkbox" class="switch" checked disabled></label>
+          <label class="toggle" for="tgA"><span>Analytics</span><input type="checkbox" class="switch" id="tgA"${c.analytics ? ' checked' : ''}></label>
+          <label class="toggle" for="tgD"><span>Ads</span><input type="checkbox" class="switch" id="tgD"${c.ads ? ' checked' : ''}></label>
+        </div>
+        <div class="banner-actions two-up"><button type="button" class="btn btn-ghost btn-sm" data-c="reject">Reject all</button><button type="button" class="btn btn-sm" data-c="save">Save choices</button></div>`;
+    }
+    return `<p><b>Cookies at Rioni Books.</b> Necessary cookies keep the shop working. With your permission we’d also use analytics and ad cookies. <u>Privacy Policy</u></p>
+      <div class="banner-actions"><button type="button" class="btn btn-sm" data-c="reject">Reject all</button><button type="button" class="btn btn-ghost btn-sm" data-c="custom">Customize</button><button type="button" class="btn btn-sm" data-c="accept">Accept all</button></div>`;
+  }
+  if (lab.dpManage) {
+    return `<span class="dp-tag">Don’t build this</span><p><b>Your choices</b> (we picked them for you)</p>
+      <div class="toggles">
+        <label class="toggle"><span>Analytics</span><input type="checkbox" class="switch" checked></label>
+        <label class="toggle"><span>Ads</span><input type="checkbox" class="switch" checked></label>
+        <label class="toggle"><span>214 partners</span><input type="checkbox" class="switch" checked></label>
+      </div>
+      <button type="button" class="btn big-accept" data-c="accept">Confirm my choices</button>`;
+  }
+  return `<span class="dp-tag">Don’t build this</span><p><b>We care about your experience!</b> By continuing you accept all cookies.</p>
+    <button type="button" class="btn big-accept" data-c="accept">Accept &amp; continue</button>
+    <button type="button" class="tiny-link" data-c="dpmanage">manage options</button>`;
+}
+
+function renderLab(focusBanner) {
+  const fair = lab.mode === 'fair';
+  const showBanner = !lab.consent || lab.customizing;
+  banner.hidden = !showBanner;
+  reopen.hidden = showBanner;
+  if (showBanner) banner.innerHTML = bannerHTML();
+  const files = [['app.js', 'necessary'], ['styles.css', 'necessary'], ['analytics.js', 'analytics'], ['ads-pixel.js', 'ads']];
+  netlog.innerHTML = files.map(([file, cat]) => {
+    let s;
+    if (cat === 'necessary') s = ['loaded', 'st-loaded'];
+    else if (!fair) s = ['loaded before consent', 'st-bad'];
+    else if (!lab.consent) s = ['waiting for consent', 'st-waiting'];
+    else if (cat === 'ads' && gpcOn && lab.consent.ads) s = ['blocked by GPC', 'st-blocked'];
+    else if (lab.consent[cat]) s = ['loaded', 'st-loaded'];
+    else s = ['blocked', 'st-blocked'];
+    return `<li><span>${file}</span><span class="cat">${cat}</span><span class="st ${s[1]}">${s[0]}</span></li>`;
+  }).join('');
+  labNote.classList.toggle('bad', !fair);
+  labNote.textContent = !fair
+    ? 'Trackers loaded before the user chose anything. In the EU that breaks the rules, whatever the user clicks next.'
+    : !lab.consent
+      ? 'Only necessary files load. Analytics and ads wait for the user’s choice.'
+      : 'Choice saved. Only what the user allowed is loading, and “Privacy choices” lets them change it.';
+  if (focusBanner) {
+    const target = showBanner ? banner.querySelector('button, input:not([disabled])') : reopen;
+    if (target) target.focus();
+  }
+}
+banner.addEventListener('click', e => {
+  const b = e.target.closest('[data-c]');
+  if (!b) return;
+  const c = b.dataset.c;
+  if (c === 'reject') { lab.consent = { analytics: false, ads: false }; lab.customizing = false; }
+  else if (c === 'accept') { lab.consent = { analytics: true, ads: true }; lab.customizing = false; lab.dpManage = false; }
+  else if (c === 'custom') { lab.customizing = true; }
+  else if (c === 'save') { lab.consent = { analytics: $('#tgA').checked, ads: $('#tgD').checked }; lab.customizing = false; }
+  else if (c === 'dpmanage') { lab.dpManage = true; }
+  renderLab(true);
+});
+reopen.addEventListener('click', () => {
+  if (lab.mode === 'fair') lab.customizing = true; else { lab.consent = null; lab.dpManage = false; }
+  renderLab(true);
+});
+function resetLab() { lab.consent = null; lab.customizing = false; lab.dpManage = false; }
+setupTabs($('#labTabs'), key => { lab.mode = key; resetLab(); renderLab(false); });
+$('#labReset').addEventListener('click', () => { resetLab(); renderLab(true); });
+const g = navigator.globalPrivacyControl;
+$('#gpc').textContent = g === true
+  ? 'Your browser is sending Global Privacy Control right now. A site covered by the CCPA must treat you as opted out of sale and sharing.'
+  : g === false
+    ? 'Your browser supports Global Privacy Control, but it is switched off.'
+    : 'Your browser is not sending Global Privacy Control. Brave and DuckDuckGo send it by default; Firefox has a setting.';
+
+/* 11 · quiz */
+const qCount = $('#qCount'), qScore = $('#qScore'), qDots = $('#qDots'), qBody = $('#qBody');
+const qAnswers = $('#qAnswers'), qVerdict = $('#qVerdict'), qNext = $('#qNext');
+const quiz = { i: 0, score: 0, results: [] };
+function renderQuiz() {
+  qDots.innerHTML = QUIZ.map((_, k) => `<i class="${quiz.results[k] === true ? 'ok' : quiz.results[k] === false ? 'miss' : k === quiz.i ? 'now' : ''}"></i>`).join('');
+  qScore.textContent = quiz.score;
+  if (quiz.i >= QUIZ.length) {
+    qCount.textContent = 'Finished';
+    const s = quiz.score;
+    qBody.innerHTML = `<div class="exhibit quiz-end"><b>${s} / ${QUIZ.length}</b><p>${s === QUIZ.length ? 'Perfect. Nobody is fooling you.' : s >= 6 ? 'Sharp eyes. Review the ones you missed.' : 'Fakes are good at looking real. Use the toolkit before you trust a shop.'}</p><button class="btn" type="button" id="qAgain">Play again</button></div>`;
+    qAnswers.hidden = true; qVerdict.hidden = true; qNext.hidden = true;
+    $('#qAgain').addEventListener('click', () => { quiz.i = 0; quiz.score = 0; quiz.results = []; renderQuiz(); });
+    return;
+  }
+  const q = QUIZ[quiz.i];
+  qCount.textContent = `Exhibit ${quiz.i + 1} of ${QUIZ.length}`;
+  qBody.innerHTML = `<div class="exhibit"><p class="ex-label">${q.label}</p><div>${q.html}</div></div>`;
+  swap(qBody);
+  qAnswers.hidden = false;
+  $$('button', qAnswers).forEach(b => { b.disabled = false; });
+  qVerdict.hidden = true; qNext.hidden = true;
+}
+qAnswers.addEventListener('click', e => {
+  const b = e.target.closest('[data-real]');
+  if (!b || quiz.results[quiz.i] !== undefined) return;
+  const q = QUIZ[quiz.i];
+  const ok = (b.dataset.real === '1') === q.real;
+  quiz.results[quiz.i] = ok;
+  if (ok) quiz.score++;
+  $$('button', qAnswers).forEach(x => { x.disabled = true; });
+  qVerdict.className = 'verdict ' + (ok ? 'right' : 'wrong');
+  qVerdict.innerHTML = `<b>${ok ? 'Correct.' : 'Not quite.'} ${q.real ? 'This one is real.' : 'This is a red flag.'}</b>${q.why}`;
+  qVerdict.hidden = false;
+  qNext.hidden = false;
+  qNext.textContent = quiz.i === QUIZ.length - 1 ? 'See your score →' : 'Next exhibit →';
+  qScore.textContent = quiz.score;
+  qDots.children[quiz.i].className = ok ? 'ok' : 'miss';
+  qNext.focus();
+});
+qNext.addEventListener('click', () => { quiz.i++; renderQuiz(); });
+renderQuiz();
+
+/* 12 · finale */
+const finalAgree = $('#finalAgree'), finalRec = $('#finalRec');
+finalAgree.addEventListener('change', () => {
+  finalRec.hidden = !finalAgree.checked;
+  if (finalAgree.checked) {
+    $('#finalTime').textContent = new Date().toLocaleString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' · version lesson-2026-10';
+  }
+});
+const hwBtn = $('#hwBtn'), hw = $('#hw');
+hwBtn.addEventListener('click', () => {
+  const open = hw.hidden;
+  hw.hidden = !open;
+  hwBtn.setAttribute('aria-expanded', String(open));
+  hwBtn.textContent = open ? 'Hide homework' : 'Show homework';
+});
+
+/* 13 · prompt kit */
+const KIT_KEY = 'tpd-prompt-kit';
+const KIT_MAP = Object.fromEntries(KIT_FIELDS.map(f => [f.k, f]));
+const kit = { mode: 'pp', values: {}, active: null };
+try {
+  const saved = JSON.parse(localStorage.getItem(KIT_KEY) || 'null');
+  if (saved && ['pp', 'tc', 'both'].includes(saved.mode)) kit.mode = saved.mode;
+  if (saved && saved.values && typeof saved.values === 'object') {
+    KIT_FIELDS.forEach(f => { if (typeof saved.values[f.k] === 'string') kit.values[f.k] = saved.values[f.k]; });
+  }
+} catch (e) { /* storage unavailable: start empty */ }
+function saveKit() { try { localStorage.setItem(KIT_KEY, JSON.stringify({ mode: kit.mode, values: kit.values })); } catch (e) { /* not critical */ } }
+
+const kitFields = $('#kitFields'), kitPrompt = $('#kitPrompt'), kitCopy = $('#kitCopy'), kitCopyLabel = $('#kitCopyLabel');
+const kitVal = k => (kit.values[k] || '').replace(/\s+/g, ' ').trim();
+const kitSlot = k => kitVal(k) || `[${KIT_MAP[k].ph}]`;
+
+kitFields.innerHTML = KIT_GROUPS.map(([g, title]) => `
+  <div class="kit-group" role="group" aria-label="${title}" data-g="${g}">
+    <p class="kit-legend" aria-hidden="true">${title}</p>
+    ${KIT_FIELDS.filter(f => f.g === g).map(f => {
+      const attrs = `class="input kf-input" id="kf-${f.k}" data-k="${f.k}" placeholder="e.g. ${esc(f.ex)}" autocomplete="off"`;
+      return `<div class="kf${f.wide || f.long ? ' wide' : ''}" data-k="${f.k}">
+        <label class="kf-label" for="kf-${f.k}"><span class="kf-ic">${icon(f.icon)}</span><span>${f.label}</span><span class="kf-ok">${icon('check')}</span></label>
+        ${f.long ? `<textarea ${attrs} rows="2"></textarea>` : `<input ${attrs} type="${f.type || 'text'}" spellcheck="false">`}
+      </div>`;
+    }).join('')}
+  </div>`).join('');
+const kfInputs = $$('.kf-input', kitFields);
+kfInputs.forEach(el => { el.value = kit.values[el.dataset.k] || ''; });
+
+function kitBuild() {
+  const tpl = kitTemplate(kit.mode);
+  const keys = [...new Set(Array.from(tpl.matchAll(/\{\{(\w+)\}\}/g), m => m[1]))];
+  const text = tpl.replace(/\{\{(\w+)\}\}/g, (_, k) => kitSlot(k));
+  const missing = keys.filter(k => !kitVal(k)).length;
+  return { tpl, keys, text, missing };
+}
+function kitLine(line) {
+  if (/^[A-Z][A-Z0-9 :&]+$/.test(line)) return `<span class="pl-h">${esc(line)}</span>`;
+  const m = line.match(/^(\d+\. [^:{]+:)(.*)$/);
+  const lead = m ? `<b>${esc(m[1])}</b>` : '';
+  return lead + (m ? m[2] : line).split(/(\{\{\w+\}\})/).map(part => {
+    const t = part.match(/^\{\{(\w+)\}\}$/);
+    if (!t) return esc(part);
+    const f = KIT_MAP[t[1]], filled = !!kitVal(f.k);
+    return `<mark class="ph${filled ? ' filled' : ''}${kit.active === f.k ? ' is-focus' : ''}" data-k="${f.k}" title="${filled ? 'Edit' : 'Fill in'}: ${esc(f.label)}">${esc(kitSlot(f.k))}</mark>`;
+  }).join('');
+}
+function kitFileName() {
+  const slug = kitVal('BRAND').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 32);
+  const doc = { pp: 'privacy-policy', tc: 'terms', both: 'privacy-and-terms' }[kit.mode];
+  return `${slug ? slug + '-' : ''}${doc}-prompt.txt`;
+}
+function renderKit() {
+  const { tpl, keys, text, missing } = kitBuild();
+  kitPrompt.innerHTML = tpl.split('\n').map(kitLine).join('\n');
+  $$('.kf', kitFields).forEach(el => {
+    el.hidden = !keys.includes(el.dataset.k);
+    el.classList.toggle('is-filled', !!kitVal(el.dataset.k));
+  });
+  $$('.kit-group', kitFields).forEach(g => { g.hidden = !$$('.kf', g).some(el => !el.hidden); });
+  const filled = keys.length - missing;
+  $('#kitFilled').textContent = filled;
+  $('#kitTotal').textContent = keys.length;
+  $('#kitMeter').style.width = (filled / keys.length * 100) + '%';
+  $('#kitFile').textContent = kitFileName();
+  $('#kitMeta').textContent = `· ${text.split(/\s+/).filter(Boolean).length} words`;
+}
+function kitReveal(k) {
+  const m = kitPrompt.querySelector(`.ph[data-k="${k}"]`);
+  if (!m || kitPrompt.scrollHeight <= kitPrompt.clientHeight + 4) return;
+  const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  kitPrompt.scrollTo({ top: Math.max(0, m.offsetTop - kitPrompt.clientHeight / 3), behavior: reduce ? 'auto' : 'smooth' });
+}
+function kitSetActive(k) {
+  kit.active = k;
+  $$('.ph', kitPrompt).forEach(m => m.classList.toggle('is-focus', m.dataset.k === k));
+}
+
+kitFields.addEventListener('input', e => {
+  const el = e.target.closest('.kf-input');
+  if (!el) return;
+  kit.values[el.dataset.k] = el.value;
+  renderKit(); saveKit();
+});
+kitFields.addEventListener('focusin', e => {
+  const el = e.target.closest('.kf-input');
+  if (el) { kitSetActive(el.dataset.k); kitReveal(el.dataset.k); }
+});
+kitFields.addEventListener('focusout', () => kitSetActive(null));
+kitPrompt.addEventListener('click', e => {
+  const m = e.target.closest('.ph[data-k]');
+  if (m) $(`#kf-${m.dataset.k}`).focus();
+});
+
+$$('[role="tab"]', $('#kitTabs')).forEach(t => t.setAttribute('aria-selected', String(t.dataset.key === kit.mode)));
+setupTabs($('#kitTabs'), key => { kit.mode = key; renderKit(); kitPrompt.scrollTop = 0; swap(kitPrompt); saveKit(); });
+
+$('#kitExample').addEventListener('click', () => {
+  KIT_FIELDS.forEach(f => { kit.values[f.k] = f.ex; });
+  kfInputs.forEach(el => { el.value = kit.values[el.dataset.k]; });
+  renderKit(); saveKit();
+  toast('Example filled in for Rioni Books, a fictional shop. Replace it with your own details.');
+});
+$('#kitClear').addEventListener('click', () => {
+  kit.values = {};
+  kfInputs.forEach(el => { el.value = ''; });
+  renderKit(); saveKit();
+  toast('Cleared. Every placeholder is highlighted again.');
+});
+
+async function copyText(text) {
+  try { await navigator.clipboard.writeText(text); return true; } catch (e) { /* try the fallback */ }
+  const ta = document.createElement('textarea');
+  ta.value = text; ta.setAttribute('readonly', '');
+  ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none';
+  document.body.appendChild(ta); ta.select();
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  ta.remove();
+  return ok;
+}
+let copyT;
+kitCopy.addEventListener('click', async () => {
+  const { text, missing } = kitBuild();
+  if (!(await copyText(text))) {
+    const r = document.createRange(); r.selectNodeContents(kitPrompt);
+    const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    toast('Copying is blocked here. The prompt is selected: press Ctrl+C (⌘C on a Mac).');
+    return;
+  }
+  kitCopy.classList.add('copied'); kitCopyLabel.textContent = 'Copied';
+  clearTimeout(copyT);
+  copyT = setTimeout(() => { kitCopy.classList.remove('copied'); kitCopyLabel.textContent = 'Copy prompt'; }, 2200);
+  toast(missing
+    ? `Prompt copied. ${missing} placeholder${missing === 1 ? ' is' : 's are'} still empty, so the AI will ask you for ${missing === 1 ? 'it' : 'them'}.`
+    : 'Prompt copied. Paste it into your AI assistant.');
+});
+$('#kitDownload').addEventListener('click', () => {
+  try {
+    const url = URL.createObjectURL(new Blob([kitBuild().text], { type: 'text/plain;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url; a.download = kitFileName();
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    toast(`Saved as ${kitFileName()}`);
+  } catch (e) { toast('Downloads are blocked here. Use Copy prompt instead.'); }
+});
+renderKit();
+
+/* ================= start ================= */
+renderLab(false);
+const m = location.hash.match(/^#s(\d{1,2})$/);
+go(m ? Number(m[1]) - 1 : 0, { fromHash: true });
+})();
+</script>
+
+</html>
